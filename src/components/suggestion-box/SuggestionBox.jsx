@@ -7,10 +7,10 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import { Button } from '@mui/material';
-export const SuggestionBar = () => {
+export const SuggestionBox = () => {
     return (
         <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-            <ListItem sx={{display: "flex", alignItems: "center", gap: "0.5rem", flexWrap: "wrap",}}>
+            <ListItem sx={{ display: "flex", alignItems: "center", gap: "0.5rem", flexWrap: "wrap", }}>
                 <ListItemAvatar>
                     <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
                 </ListItemAvatar>

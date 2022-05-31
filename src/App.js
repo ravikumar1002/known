@@ -2,7 +2,7 @@ import "./App.css";
 import { Login, SignUp, Profile } from "./features";
 import { Routes, Route, Link } from "react-router-dom";
 import { RequireAuth } from "./features/auth/RequireAuth";
-import { PageLayout } from "./components/pagelayout/PageLayout";
+import { PageLayout } from "./components";
 import { Home } from "./features/home/home";
 import { useSelector } from "react-redux";
 
