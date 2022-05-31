@@ -3,8 +3,8 @@ import { loginThunk, signupThunk } from "../../thunk";
 import { loginCall, signUpCall } from "../../services";
 
 const initialState = {
-  authToken: "",
-  authUser: {},
+  authToken: localStorage.getItem("authToken") ?? "",
+  authUser: JSON.parse(localStorage.getItem("authUser")) ?? {},
   authStatus: "idle",
   authError: null,
 };
