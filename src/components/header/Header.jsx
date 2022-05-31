@@ -76,7 +76,6 @@ export const Header = () => {
 
     const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
@@ -96,7 +95,7 @@ export const Header = () => {
                         component="div"
                         sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
                     >
-                        MUI
+                        Known
                     </Typography>
                     <Search>
                         <SearchIconWrapper>
