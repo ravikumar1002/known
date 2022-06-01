@@ -24,6 +24,7 @@ const Item = (props) => {
 
 export const InputPostCard = () => {
     const [value, setValue] = useState('');
+    
 
     const handleChange = (event) => {
         setValue(event.target.value);
