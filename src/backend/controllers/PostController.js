@@ -78,6 +78,7 @@ export const createPostHandler = function (schema, request) {
       );
     }
     const { postData } = JSON.parse(request.requestBody);
+    console.log(postData)
     const post = {
       _id: uuid(),
       ...postData,
@@ -90,6 +91,8 @@ export const createPostHandler = function (schema, request) {
       createdAt: formatDate(),
       updatedAt: formatDate(),
     };
+    console.log(post)
+
     this.db.posts.insert(post);
     return new Response(201, {}, { posts: this.db.posts });
   } catch (error) {

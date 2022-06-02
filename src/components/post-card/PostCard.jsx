@@ -21,7 +21,7 @@ const Item = (props) => {
 }
 
 
-export const PostCard = () => {
+export const PostCard = ({ postData }) => {
 
     return (
         <div style={{ margin: "1rem 0" }}>
@@ -34,17 +34,17 @@ export const PostCard = () => {
                     </Item>
                     <Item sx={{ flexGrow: 1 }}>
                         <Typography variant="h5" gutterBottom component="span">
-                            Heading
+                            {postData.username}
                         </Typography>
                         <Typography variant="subtitle2" gutterBottom component="span" sx={{ marginLeft: "1rem" }}>
-                            00/00/0000
+                            {postData.updatedAt}
                         </Typography>
                     </Item>
                     <PostMenu />
                 </div>
                 <div>
                     <Typography variant="subtitle1" gutterBottom component="p" sx={{ marginLeft: "1rem" }}>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa accusantium quia laborum numquam dignissimos qui asperiores eius nemo odit excepturi.
+                        {postData.content}
                     </Typography>
                 </div>
                 <div>

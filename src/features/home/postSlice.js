@@ -76,4 +76,3 @@ const postsSlice = createSlice({
 });
 
 export const postsReducer = postsSlice.reducer;
-export const { changeSorting, setPageNum } = postsSlice.actions;

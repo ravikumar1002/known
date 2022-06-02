@@ -18,10 +18,10 @@ export const editPostInServer = (postData, authorization) =>
 export const deletePostFromServer = (postId, authorization) =>
   axios.delete(`/api/posts/${postId}`, { headers: { authorization } });
 
-const likePostInServer = (postId, authorization) =>
+export const likePostInServer = (postId, authorization) =>
   axios.post(`/api/posts/like/${postId}`, {}, { headers: { authorization } });
 
-const dislikePostInServer = (postId, authorization) => {
+export const dislikePostInServer = (postId, authorization) => {
   return axios.post(
     `/api/posts/dislike/${postId}`,
     {},
