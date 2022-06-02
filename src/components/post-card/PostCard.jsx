@@ -1,6 +1,8 @@
 import { Avatar, Button } from "@mui/material"
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography';
+import { useState } from "react";
+import { InputPostCard } from "../../features/home/components/input-post-card/InputPostCard";
 import { PostMenu, Footer } from "./components"
 
 const Item = (props) => {
@@ -21,36 +23,45 @@ const Item = (props) => {
 }
 
 
-export const PostCard = () => {
+export const PostCard = ({ postData, authToken }) => {
+
+    const [editPost, setEditPost] = useState(false)
+    const dateFormat = new Date(postData.updatedAt).toLocaleDateString('en-GB')
 
     return (
         <div style={{ margin: "1rem 0" }}>
-            <Box
-                sx={{ p: 1, bgcolor: 'background.paper', borderRadius: 1 }}
-            >
-                <div style={{ display: "flex", width: "100%", alignItems: "center", }}>
-                    <Item>
-                        <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-                    </Item>
-                    <Item sx={{ flexGrow: 1 }}>
-                        <Typography variant="h5" gutterBottom component="span">
-                            Heading
+            {editPost
+                ?
+                <InputPostCard updatePost={true} updateData={postData} setEditPost={setEditPost} />
+                :
+                <Box
+                    sx={{ p: 1, bgcolor: 'background.paper', borderRadius: 1 }}
+                >
+                    <div style={{ display: "flex", width: "100%", alignItems: "center", }}>
+                        <Item>
+                            <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+                        </Item>
+                        <Item sx={{ flexGrow: 1 }}>
+                            <Typography variant="h5" gutterBottom component="span">
+                                {postData.username}
+                            </Typography>
+                            <Typography variant="subtitle2" gutterBottom component="span" sx={{ marginLeft: "1rem" }}>
+                                {dateFormat}
+                            </Typography>
+                        </Item>
+                        <PostMenu setEditPost={setEditPost} authToken={authToken} postData={postData} />
+                    </div>
+                    <div>
+                        <Typography variant="subtitle1" gutterBottom component="p" sx={{ marginLeft: "1rem" }}>
+                            {postData.content}
                         </Typography>
-                        <Typography variant="subtitle2" gutterBottom component="span" sx={{ marginLeft: "1rem" }}>
-                            00/00/0000
-                        </Typography>
-                    </Item>
-                    <PostMenu />
-                </div>
-                <div>
-                    <Typography variant="subtitle1" gutterBottom component="p" sx={{ marginLeft: "1rem" }}>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa accusantium quia laborum numquam dignissimos qui asperiores eius nemo odit excepturi.
-                    </Typography>
-                </div>
-                <div>
-                    <Footer />
-                </div>
-            </Box>
+                    </div>
+                    <div>
+                        <Footer />
+                    </div>
+                </Box>
+            }
+
         </div>
     )
 }

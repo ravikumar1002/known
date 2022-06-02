@@ -2,7 +2,8 @@ import { useState } from 'react';
 import Box from '@mui/material/Box';
 import { Avatar, Button } from '@mui/material';
 import TextField from '@mui/material/TextField';
-
+import { useDispatch, useSelector } from "react-redux";
+import { addPostThunk, editPostThunk } from "../../../../thunk";
 
 const Item = (props) => {
     const { sx, ...other } = props;
@@ -22,12 +23,42 @@ const Item = (props) => {
     );
 }
 
-export const InputPostCard = () => {
-    const [value, setValue] = useState('');
+export const InputPostCard = ({ updatePost, updateData, setEditPost }) => {
+    const { authToken, authUser } = useSelector((state) => state.auth);
+    const [inputValue, setInputValue] = useState(updatePost ? { ...updateData } : { content: "" });
+    const dispatch = useDispatch();
 
     const handleChange = (event) => {
-        setValue(event.target.value);
+        setInputValue(prev => {
+            return {
+                ...prev,
+                content: event.target.value
+            }
+        });
     };
+
+    const createNewPost = (postData) => {
+        if (updatePost) {
+            dispatch(editPostThunk({
+                postData,
+                authToken,
+            }))
+            setInputValue({
+                content: ""
+            })
+            setEditPost(false)
+        } else {
+            dispatch(addPostThunk({
+                postData,
+                authToken,
+            }))
+            setInputValue({
+                content: ""
+            })
+        }
+
+    }
+
 
     return (
         <div style={{ width: '100%' }}>
@@ -44,7 +75,7 @@ export const InputPostCard = () => {
                             placeholder='Write something'
                             multiline
                             fullWidth
-                            value={value}
+                            value={inputValue.content}
                             onChange={handleChange}
                         />
                     </Item>
@@ -54,7 +85,7 @@ export const InputPostCard = () => {
                     justifyContent: "end",
                     padding: "0 1rem"
                 }}>
-                    <Button variant="contained" >Post</Button>
+                    <Button variant="contained" onClick={() => createNewPost(inputValue)}>Post</Button>
                 </div>
             </Box>
         </div>

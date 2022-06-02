@@ -8,10 +8,13 @@ import Stack from '@mui/material/Stack';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { IconButton } from '@mui/material';
 import { useState, useRef, useEffect } from "react"
-
-export const PostMenu = () => {
+import { useDispatch, useSelector } from "react-redux";
+import { deletePostThunk } from '../../../thunk';
+export const PostMenu = ({ setEditPost, authToken, postData }) => {
     const [open, setOpen] = useState(false);
     const anchorRef = useRef(null);
+    const dispatch = useDispatch();
+
 
     const handleToggle = () => {
         setOpen((prevOpen) => !prevOpen);
@@ -79,8 +82,17 @@ export const PostMenu = () => {
                                         aria-labelledby="composition-button"
                                         onKeyDown={handleListKeyDown}
                                     >
-                                        <MenuItem onClick={handleClose}>Edit</MenuItem>
-                                        <MenuItem onClick={handleClose}>Delete</MenuItem>
+                                        <MenuItem onClick={() => {
+                                            setEditPost(true)
+                                            handleClose()
+                                        }}>Edit</MenuItem>
+                                        <MenuItem onClick={() => {
+                                            dispatch(deletePostThunk({
+                                                postId: postData._id,
+                                                authToken: authToken,
+                                            }))
+                                            handleClose()
+                                        }}>Delete</MenuItem>
                                     </MenuList>
                                 </ClickAwayListener>
                             </Paper>

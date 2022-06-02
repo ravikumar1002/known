@@ -39,7 +39,7 @@ export const Login = () => {
 
     useEffect(() => {
         authToken &&
-            navigate(location?.state?.from?.pathname || "/profile", { replace: true });
+            navigate(location?.state?.from?.pathname || "/", { replace: true });
     }, [authToken]);
 
 
