@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 export const Home = () => {
     const { posts } = useSelector((state) => state.posts);
-    const { authUser } = useSelector((state) => state.auth);
+    const { authUser, authToken } = useSelector((state) => state.auth);
     const [followingPosts, setFollowingPosts] = useState([]);
 
     useEffect(() => {
@@ -27,7 +27,7 @@ export const Home = () => {
             <InputPostCard />
             {followingPosts.length > 0 ? followingPosts.map(post => {
                 return (
-                    <PostCard key={post._id} postData={post} />
+                    <PostCard key={post._id} postData={post} authToken={authToken} />
                 )
             }) : <p>No post</p>}
         </div>

@@ -9,7 +9,6 @@ import {
   dislikePostInServer,
 } from "../services";
 
-
 export const getPostsThunk = createAsyncThunk(
   "/posts/getAllPosts",
   async (_, { rejectWithValue }) => {
@@ -23,11 +22,10 @@ export const getPostsThunk = createAsyncThunk(
   }
 );
 
-
 export const addPostThunk = createAsyncThunk(
   "/posts/addPost",
   async ({ postData, authToken }, { rejectWithValue }) => {
-    console.log(postData, authToken)
+    console.log(postData, authToken);
     try {
       const response = await addPostToServer(postData, authToken);
       return response.data.posts;

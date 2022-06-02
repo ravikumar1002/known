@@ -13,6 +13,7 @@ const initialState = {
   userPosts: [],
   postStatus: "idle",
   likeDislikeStatus: "idle",
+  createPostStatus: "idle",
   postError: null,
 };
 
@@ -32,22 +33,31 @@ const postsSlice = createSlice({
       state.postError = action.payload;
       state.postStatus = "idle";
     },
+    [addPostThunk.pending]: (state, action) => {
+      state.createPostStatus = "pending";
+    },
     [addPostThunk.fulfilled]: (state, action) => {
       state.posts = action.payload;
     },
     [addPostThunk.rejected]: (state, action) => {
       state.postError = action.payload;
     },
-    [deletePostThunk.fulfilled]: (state, action) => {
-      state.posts = action.payload;
-    },
-    [deletePostThunk.rejected]: (state, action) => {
-      state.postError = action.payload;
+    [editPostThunk.pending]: (state, action) => {
+      state.createPostStatus = "pending";
     },
     [editPostThunk.fulfilled]: (state, action) => {
       state.posts = action.payload;
     },
     [editPostThunk.rejected]: (state, action) => {
+      state.postError = action.payload;
+    },
+    [deletePostThunk.pending]: (state, action) => {
+      state.createPostStatus = "pending";
+    },
+    [deletePostThunk.fulfilled]: (state, action) => {
+      state.posts = action.payload;
+    },
+    [deletePostThunk.rejected]: (state, action) => {
       state.postError = action.payload;
     },
     [likePostThunk.pending]: (state, action) => {

@@ -23,7 +23,7 @@ const Item = (props) => {
     );
 }
 
-export const InputPostCard = ({ updatePost, updateData }) => {
+export const InputPostCard = ({ updatePost, updateData, setEditPost }) => {
     const { authToken, authUser } = useSelector((state) => state.auth);
     const [inputValue, setInputValue] = useState(updatePost ? { ...updateData } : { content: "" });
     const dispatch = useDispatch();
@@ -38,17 +38,23 @@ export const InputPostCard = ({ updatePost, updateData }) => {
     };
 
     const createNewPost = (postData) => {
-        console.log(postData)
         if (updatePost) {
             dispatch(editPostThunk({
                 postData,
                 authToken,
             }))
+            setInputValue({
+                content: ""
+            })
+            setEditPost(false)
         } else {
             dispatch(addPostThunk({
                 postData,
                 authToken,
             }))
+            setInputValue({
+                content: ""
+            })
         }
 
     }
@@ -69,7 +75,7 @@ export const InputPostCard = ({ updatePost, updateData }) => {
                             placeholder='Write something'
                             multiline
                             fullWidth
-                            value={inputValue.uploadPost}
+                            value={inputValue.content}
                             onChange={handleChange}
                         />
                     </Item>
