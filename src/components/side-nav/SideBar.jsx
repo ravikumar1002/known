@@ -5,10 +5,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
 import ExploreIcon from '@mui/icons-material/Explore';
-import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import { Icon } from "@mui/material";
 

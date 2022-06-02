@@ -9,15 +9,15 @@ export const Home = () => {
     const [followingPosts, setFollowingPosts] = useState([]);
 
     useEffect(() => {
-        console.log(posts)
-        const filteredPosts = posts.filter(
-            (currPost) =>
-                authUser.following.find(
-                    (user) => user.username === currPost.username
-                ) || authUser.username === currPost.username
-        );
+        // console.log(posts)
+        // const filteredPosts = posts.filter(
+        //     (currPost) =>
+        //         authUser.following.find(
+        //             (user) => user.username === currPost.username
+        //         ) || authUser.username === currPost.username
+        // );
 
-        setFollowingPosts(filteredPosts);
+        setFollowingPosts(posts);
     }, [authUser, posts]);
 
     console.log(followingPosts)
