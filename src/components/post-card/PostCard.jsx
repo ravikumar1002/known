@@ -4,6 +4,9 @@ import Typography from '@mui/material/Typography';
 import { useState } from "react";
 import { InputPostCard } from "../../features/home/components/input-post-card/InputPostCard";
 import { PostMenu, Footer } from "./components"
+import { deletePostThunk } from '../../thunk';
+import { useDispatch, useSelector } from "react-redux";
+import MenuItem from '@mui/material/MenuItem';
 
 const Item = (props) => {
     const { sx, ...other } = props;
@@ -27,6 +30,7 @@ export const PostCard = ({ postData, authToken }) => {
 
     const [editPost, setEditPost] = useState(false)
     const dateFormat = new Date(postData.updatedAt).toLocaleDateString('en-GB')
+    const dispatch = useDispatch();
 
     return (
         <div style={{ margin: "1rem 0" }}>
@@ -49,7 +53,17 @@ export const PostCard = ({ postData, authToken }) => {
                                 {dateFormat}
                             </Typography>
                         </Item>
-                        <PostMenu setEditPost={setEditPost} authToken={authToken} postData={postData} />
+                        <PostMenu>
+                            <MenuItem onClick={() => {
+                                setEditPost(true)
+                            }}>Edit</MenuItem>
+                            <MenuItem onClick={() => {
+                                dispatch(deletePostThunk({
+                                    postId: postData._id,
+                                    authToken: authToken,
+                                }))
+                            }}>Delete</MenuItem>
+                        </PostMenu>
                     </div>
                     <div>
                         <Typography variant="subtitle1" gutterBottom component="p" sx={{ marginLeft: "1rem" }}>
@@ -65,3 +79,4 @@ export const PostCard = ({ postData, authToken }) => {
         </div>
     )
 }
+

@@ -5,6 +5,7 @@ import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { Avatar } from '@mui/material';
 
 const style = {
     position: 'absolute',
@@ -17,6 +18,26 @@ const style = {
     boxShadow: 24,
     p: 4,
 };
+
+
+
+const Item = (props) => {
+    const { sx, ...other } = props;
+    return (
+        <Box xs={{ width: "90%" }}
+            sx={{
+                padding: "0.5rem",
+                color: (theme) => (theme.palette.mode === 'dark' ? 'grey.300' : 'grey.800'),
+                borderRadius: 2,
+                fontSize: '0.875rem',
+                fontWeight: '700',
+                ...sx,
+            }}
+            {...other}
+        />
+    );
+}
+
 
 export const TransitionsModal = ({ handleOpen, open, setOpen }) => {
     const handleClose = () => setOpen(false);
@@ -41,7 +62,7 @@ export const TransitionsModal = ({ handleOpen, open, setOpen }) => {
                         </Item>
                         <Item sx={{ flexGrow: 1 }}>
                             <Typography variant="h5" gutterBottom component="span">
-                                {postData.username}
+                                "asdsa"
                             </Typography>
                         </Item>
                     </div>

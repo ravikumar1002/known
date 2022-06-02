@@ -2,18 +2,14 @@ import ClickAwayListener from '@mui/material/ClickAwayListener';
 import Grow from '@mui/material/Grow';
 import Paper from '@mui/material/Paper';
 import Popper from '@mui/material/Popper';
-import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 import Stack from '@mui/material/Stack';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { IconButton } from '@mui/material';
 import { useState, useRef, useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux";
-import { deletePostThunk } from '../../../thunk';
-export const PostMenu = ({ setEditPost, authToken, postData }) => {
+export const PostMenu = ({ children }) => {
     const [open, setOpen] = useState(false);
     const anchorRef = useRef(null);
-    const dispatch = useDispatch();
 
 
     const handleToggle = () => {
@@ -82,17 +78,7 @@ export const PostMenu = ({ setEditPost, authToken, postData }) => {
                                         aria-labelledby="composition-button"
                                         onKeyDown={handleListKeyDown}
                                     >
-                                        <MenuItem onClick={() => {
-                                            setEditPost(true)
-                                            handleClose()
-                                        }}>Edit</MenuItem>
-                                        <MenuItem onClick={() => {
-                                            dispatch(deletePostThunk({
-                                                postId: postData._id,
-                                                authToken: authToken,
-                                            }))
-                                            handleClose()
-                                        }}>Delete</MenuItem>
+                                        {children}
                                     </MenuList>
                                 </ClickAwayListener>
                             </Paper>

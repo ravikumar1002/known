@@ -4,9 +4,17 @@ import { Routes, Route, Link } from "react-router-dom";
 import { RequireAuth } from "./features/auth/RequireAuth";
 import { PageLayout } from "./components";
 import { Home } from "./features/home/home";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getPostsThunk } from "./thunk";
 
 function App() {
+  const { authToken } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getPostsThunk());
+  }, [authToken]);
 
   return (
     <div className="App">
@@ -16,17 +24,17 @@ function App() {
         <Route
           path="/"
           element={
-            <RequireAuth >
+            <RequireAuth>
               <PageLayout>
                 <Home />
               </PageLayout>
             </RequireAuth>
-          } 
+          }
         ></Route>
         <Route
           path="/profile"
           element={
-            <RequireAuth >
+            <RequireAuth>
               <PageLayout>
                 <Profile />
               </PageLayout>

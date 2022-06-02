@@ -2,23 +2,18 @@ import { PostCard } from "../../components"
 import { InputPostCard } from "./components/input-post-card/InputPostCard"
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+import { getPostsThunk } from "../../thunk";
 
 export const Home = () => {
     const { posts } = useSelector((state) => state.posts);
     const { authUser, authToken } = useSelector((state) => state.auth);
     const [followingPosts, setFollowingPosts] = useState([]);
+    const dispatch = useDispatch()
 
     useEffect(() => {
-        // console.log(posts)
-        // const filteredPosts = posts.filter(
-        //     (currPost) =>
-        //         authUser.following.find(
-        //             (user) => user.username === currPost.username
-        //         ) || authUser.username === currPost.username
-        // );
-
-        setFollowingPosts(posts);
+        setFollowingPosts(posts)
     }, [authUser, posts]);
+
 
     console.log(followingPosts)
 
