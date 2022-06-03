@@ -101,7 +101,7 @@ export const posts = [
     content:
       "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Possimus, consequatur?",
     likes: {
-      likeCount: 1,
+      likeCount: 0,
       likedBy: [],
       dislikedBy: [],
     },
