@@ -9,7 +9,7 @@ import Box from '@mui/material/Box'
 import { useState } from 'react';
 import { TransitionsModal } from './PostModal';
 
-export const Footer = () => {
+export const Footer = ({post}) => {
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     return (
@@ -25,6 +25,9 @@ export const Footer = () => {
                     <IconButton aria-label="comment" onClick={handleOpen} >
                         <CommentIcon />
                     </IconButton>
+                    <Typography variant="body-2" gutterBottom component="span">
+                     {post?.comments?.length}
+                    </Typography>
                 </div>
                 <div>
                     <IconButton aria-label="Bookmark">
@@ -32,8 +35,8 @@ export const Footer = () => {
                     </IconButton>
                 </div>
             </div>
-            <CommentsSection />
-            <TransitionsModal open={open} setOpen={setOpen} handleOpen={handleOpen} />
+            <CommentsSection  postID= {post._id}/>
+            <TransitionsModal open={open} setOpen={setOpen} handleOpen={handleOpen} post= {post} />
         </Box>
     )
 }

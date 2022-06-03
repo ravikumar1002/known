@@ -4,6 +4,9 @@ import Divider from '@mui/material/Divider';
 import Input from '@mui/material/Input';
 import { TextField, Typography } from '@mui/material';
 import { styled, useTheme } from "@mui/material/styles";
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addCommentThunk } from '../../../thunk';
 
 
 
@@ -17,15 +20,36 @@ const TextFieldWithoutUnderLine = styled(TextField)(() => ({
 
 }));
 
-export const CommentsSection = () => {
+export const CommentsSection = ({ postID }) => {
+
+    const [commentPara, setCommentPara] = useState({ comment: "" })
+    const { authToken } = useSelector((state) => state.auth);
+    const dispatch = useDispatch();
+
+    const CommentEvent = (targetValue) => {
+        setCommentPara((prev) => {
+            return {
+                ...prev,
+                comment: targetValue
+            }
+        })
+    }
+
+    const postFn = (commentData) => {
+        console.log(postID, commentData, authToken)
+        dispatch(addCommentThunk({
+            postId : postID,
+            commentData,
+            authToken,
+        }))
+        setCommentPara({
+            comment: ""
+        })
+    }
 
     return (
+
         <Box>
-            <div>
-                <Typography variant="caption" gutterBottom component="span">
-                    View all 2 comments
-                </Typography>
-            </div>
             <Divider />
             <div style={{
                 display: "flex", alignItems: "center",
@@ -35,9 +59,13 @@ export const CommentsSection = () => {
                 <Typography variant="h6" gutterBottom component="span">
                     😂
                 </Typography>
-                <TextFieldWithoutUnderLine placeholder="Add a Comment..." fullWidth
-                    multiline variant="standard" />
-                <Button variant="text">Post</Button>
+                <TextFieldWithoutUnderLine placeholder="Add a Comment..." fullWidth value={commentPara.comment}
+                    multiline variant="standard" onChange={(e) => {
+                        CommentEvent(e.target.value)
+                    }} />
+                <Button variant="text" onClick={() => {
+                    postFn(commentPara)
+                }}>Post</Button>
             </div>
 
         </Box>

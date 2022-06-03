@@ -1,45 +1,26 @@
-import { useState } from 'react';
 import Backdrop from '@mui/material/Backdrop';
-import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import { Avatar } from '@mui/material';
+import { SingleComments } from './SingleComments';
+import Box from '@mui/material/Box';
+
 
 const style = {
     position: 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
+    width: "60%",
+    height: "70%",
+    overflow: "auto",
     bgcolor: 'background.paper',
-    border: '2px solid #000',
     boxShadow: 24,
     p: 4,
 };
 
 
+export const TransitionsModal = ({ commentData, open, setOpen, handleOpen, post }) => {
 
-const Item = (props) => {
-    const { sx, ...other } = props;
-    return (
-        <Box xs={{ width: "90%" }}
-            sx={{
-                padding: "0.5rem",
-                color: (theme) => (theme.palette.mode === 'dark' ? 'grey.300' : 'grey.800'),
-                borderRadius: 2,
-                fontSize: '0.875rem',
-                fontWeight: '700',
-                ...sx,
-            }}
-            {...other}
-        />
-    );
-}
-
-
-export const TransitionsModal = ({ handleOpen, open, setOpen }) => {
     const handleClose = () => setOpen(false);
 
     return (
@@ -55,19 +36,18 @@ export const TransitionsModal = ({ handleOpen, open, setOpen }) => {
             }}
         >
             <Fade in={open}>
-                <Box sx={style}>
-                    <div style={{ display: "flex", width: "100%", alignItems: "center", }}>
-                        <Item>
-                            <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-                        </Item>
-                        <Item sx={{ flexGrow: 1 }}>
-                            <Typography variant="h5" gutterBottom component="span">
-                                "asdsa"
-                            </Typography>
-                        </Item>
-                    </div>
+                <Box sx={style} >
+                    {post?.comments?.length > 0 ?
+                        post.comments.map((comment) => {
+                            return (
+                                <SingleComments comment={comment} post={post} key={comment._id} handleClose= {handleClose}/>
+                            )
+                        })
+                        :
+                        <p>No Comments</p>
+                    }
                 </Box>
             </Fade>
         </Modal>
     );
-}
+} 

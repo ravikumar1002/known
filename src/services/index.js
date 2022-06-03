@@ -1,4 +1,4 @@
-export { loginCall, signUpCall } from "./auth"; 
+export { loginCall, signUpCall } from "./auth";
 export {
   getAllPostsFromServer,
   getAllPostsOfUserFromServer,
@@ -8,3 +8,10 @@ export {
   likePostInServer,
   dislikePostInServer,
 } from "./post";
+
+export {
+  getCommentsOfPostFromServer,
+  addCommentToPostInServer,
+  editCommentInServer,
+  deleteCommentFromServer,
+} from "./commetns";

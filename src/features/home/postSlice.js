@@ -6,6 +6,10 @@ import {
   deletePostThunk,
   likePostThunk,
   dislikePostThunk,
+  getAllCommentsThunk,
+  addCommentThunk,
+  editCommentThunk,
+  deleteCommentThunk,
 } from "../../thunk";
 
 const initialState = {
@@ -15,6 +19,7 @@ const initialState = {
   likeDislikeStatus: "idle",
   createPostStatus: "idle",
   postError: null,
+  commentStatus: "idle",
 };
 
 const postsSlice = createSlice({
@@ -81,6 +86,39 @@ const postsSlice = createSlice({
     [dislikePostThunk.rejected]: (state, action) => {
       state.postError = action.payload;
       state.likeDislikeStatus = "idle";
+    },
+    [addCommentThunk.pending]: (state, action) => {
+      state.commentStatus = "pending";
+    },
+    [addCommentThunk.fulfilled]: (state, action) => {
+      state.posts = action.payload;
+      state.commentStatus = "fulfilled";
+    },
+    [addCommentThunk.rejected]: (state, action) => {
+      state.postError = action.payload;
+      state.commentStatus = "idle";
+    },
+    [editCommentThunk.pending]: (state, action) => {
+      state.commentStatus = "pending";
+    },
+    [editCommentThunk.fulfilled]: (state, action) => {
+      state.posts = action.payload;
+      state.commentStatus = "fulfilled";
+    },
+    [editCommentThunk.rejected]: (state, action) => {
+      state.postError = action.payload;
+      state.commentStatus = "idle";
+    },
+    [deleteCommentThunk.pending]: (state, action) => {
+      state.commentStatus = "pending";
+    },
+    [deleteCommentThunk.fulfilled]: (state, action) => {
+      state.posts = action.payload;
+      state.commentStatus = "fulfilled";
+    },
+    [deleteCommentThunk.rejected]: (state, action) => {
+      state.postError = action.payload;
+      state.commentStatus = "idle";
     },
   },
 });

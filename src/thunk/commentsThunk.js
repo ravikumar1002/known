@@ -1,6 +1,29 @@
-export const addComment = createAsyncThunk(
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import {
+  getCommentsOfPostFromServer,
+  addCommentToPostInServer,
+  editCommentInServer,
+  deleteCommentFromServer,
+} from "../services";
+
+export const getAllCommentsThunk = createAsyncThunk(
+  "/posts/addComment",
+  async ({ postId, authToken }, { rejectWithValue }) => {
+    try {
+      const response = await getCommentsOfPostFromServer(postId, authToken);
+      return response.data.posts;
+    } catch (error) {
+      console.error(error);
+      return rejectWithValue(error.response);
+    }
+  }
+);
+
+export const addCommentThunk = createAsyncThunk(
   "/posts/addComment",
   async ({ postId, commentData, authToken }, { rejectWithValue }) => {
+
+    console.log( postId, commentData, authToken )
     try {
       const response = await addCommentToPostInServer(
         postId,
@@ -15,7 +38,7 @@ export const addComment = createAsyncThunk(
   }
 );
 
-export const editComment = createAsyncThunk(
+export const editCommentThunk = createAsyncThunk(
   "/posts/editComment",
   async (
     { postId, commentId, commentData, authToken },
@@ -36,7 +59,7 @@ export const editComment = createAsyncThunk(
   }
 );
 
-export const deleteComment = createAsyncThunk(
+export const deleteCommentThunk = createAsyncThunk(
   "/posts/deleteComment",
   async ({ postId, commentId, authToken }, { rejectWithValue }) => {
     try {

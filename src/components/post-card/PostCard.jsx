@@ -71,7 +71,7 @@ export const PostCard = ({ postData, authToken }) => {
                         </Typography>
                     </div>
                     <div>
-                        <Footer />
+                        <Footer post= {postData}/>
                     </div>
                 </Box>
             }
