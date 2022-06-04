@@ -4,9 +4,11 @@ export {
   getPostsThunk,
   addPostThunk,
   editPostThunk,
+  loadUserPostsThunk,
   deletePostThunk,
   likePostThunk,
   dislikePostThunk,
+  loadUserPostsThunk,
 } from "./postThunk";
 
 export {
@@ -16,4 +18,10 @@ export {
   deleteCommentThunk,
 } from "./commentsThunk";
 
-export { getUsersThunk, followUserThunk, unfollowUserThunk } from "./userThunk";
+export { followUserThunk, unfollowUserThunk } from "./followThunk";
+
+export {
+  getAllUsersThunk,
+  loadUserDetailsThunk,
+  editUserProfileThunk,
+} from "./userThunk";

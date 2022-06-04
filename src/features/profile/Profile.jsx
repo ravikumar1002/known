@@ -1,20 +1,22 @@
 import { useDispatch } from "react-redux";
-
+import Box from '@mui/material/Box';
 import { logoutUser } from "../auth/authSlice"
 import { useLocation, useNavigate } from 'react-router-dom';
+import Avatar from '@mui/material/Avatar';
 
 export const Profile = () => {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
+
     return (
         <>
-            <p>Profile</p>
-            <button
-                onClick={() => {
-                    dispatch(logoutUser())
-                    navigate("/signup", { replace: true })
-                }}
-            >Logout</button>
+            <Box>
+                 <div>
+                 <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+                 </div>
+                 <div>
+                     
+                 </div>
+            </Box>
         </>
+
     )
 }

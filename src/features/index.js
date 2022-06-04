@@ -4,4 +4,4 @@ export { Profile } from "./profile/Profile";
 
 export * from "./auth/authSlice"; 
 export * from "./home/postSlice"; 
-export * from "./profile/userSlice"
+export * from "./profile/profileSlice"

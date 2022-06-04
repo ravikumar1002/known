@@ -1,41 +1,14 @@
 import axios from "axios";
 
-export const getAllUserService = () => axios.get("/api/users");
-
-export const updateUserService = (token, userData) => {
-  return axios.post(
+export const editUser = (userData, authorization) =>
+  axios.post(
     "/api/users/edit",
+    { userData },
     {
-      userData,
-    },
-    {
-      headers: {
-        authorization: token,
-      },
+      headers: { authorization },
     }
   );
-};
 
-export const followUserService = (token, userId) => {
-  return axios.post(
-    `/api/users/follow/${userId}`,
-    {},
-    {
-      headers: {
-        authorization: token,
-      },
-    }
-  );
-};
+export const getAllUsers = () => axios.get("/api/users");
 
-export const unFollowUserService = (token, userId) => {
-  return axios.post(
-    `/api/users/unfollow/${userId}`,
-    {},
-    {
-      headers: {
-        authorization: token,
-      },
-    }
-  );
-};
+export const getUser = (username) => axios.get(`/api/users/${username}`);

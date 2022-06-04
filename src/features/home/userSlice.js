@@ -1,6 +1,10 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { followUserThunk, getUsersThunk, unfollowUserThunk } from "../../thunk";
-import { logoutUser } from "../index";
+import { createSlice } from "@reduxjs/toolkit";
+import { logoutUser } from "../../features";
+import {
+  followUserThunk,
+  unfollowUserThunk,
+  getAllUsersThunk,
+} from "../../thunk";
 
 const usersSlice = createSlice({
   name: "users",
@@ -13,7 +17,7 @@ const usersSlice = createSlice({
     [logoutUser]: (state) => {
       state.users = [];
     },
-    [getUsersThunk.fulfilled]: (state, action) => {
+    [getAllUsersThunk.fulfilled]: (state, action) => {
       state.users = action.payload;
     },
     [followUserThunk.fulfilled]: (state, action) => {

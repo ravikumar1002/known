@@ -1,12 +1,12 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
   getAllPostsFromServer,
-  getAllPostsOfUserFromServer,
   addPostToServer,
   editPostInServer,
   deletePostFromServer,
   likePostInServer,
   dislikePostInServer,
+  getAllPostsOfUserFromServer,
 } from "../services";
 
 export const getPostsThunk = createAsyncThunk(
@@ -18,6 +18,19 @@ export const getPostsThunk = createAsyncThunk(
     } catch (error) {
       console.error(error);
       return rejectWithValue(error);
+    }
+  }
+);
+
+export const loadUserPostsThunk = createAsyncThunk(
+  "/profile/loadUserPosts",
+  async (username, { rejectWithValue }) => {
+    try {
+      const response = await getAllPostsOfUserFromServer(username);
+      return response.data.posts;
+    } catch (error) {
+      console.error(error.response.data);
+      return rejectWithValue(error.response.data);
     }
   }
 );

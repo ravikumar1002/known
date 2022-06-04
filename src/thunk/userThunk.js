@@ -1,43 +1,44 @@
 import {
-  followUserInServer,
+  editUser,
   getAllUsers,
-  unfollowUserInServer,
-} from "services";
+  getUser,
+  getAllPostsOfUserFromServer,
+} from "../services";
 
-export const getUsersThunk = createAsyncThunk("/users/getUsers", async () => {
-  try {
-    const response = await getAllUsers();
-    return response.data.users;
-  } catch (error) {
-    console.error(error.response.data);
-  }
-});
-
-export const followUserThunk = createAsyncThunk(
-  "/users/followUser",
-  async ({ followUserId, authToken, dispatch }, { rejectWithValue }) => {
+export const getAllUsersThunk = createAsyncThunk(
+  "/users/getUsers",
+  async () => {
     try {
-      const response = await followUserInServer(followUserId, authToken);
-      dispatch(editUserProfile({ userDetails: response.data.user, authToken }));
-      return response.data;
+      const response = await getAllUsers();
+      return response.data.users;
     } catch (error) {
       console.error(error.response.data);
-      toast.error("Couldn't follow user!");
+    }
+  }
+);
+
+export const loadUserDetailsThunk = createAsyncThunk(
+  "/profile/loadUserDetails",
+  async (username, { rejectWithValue }) => {
+    try {
+      const response = await getUser(username);
+      return response.data.user;
+    } catch (error) {
+      console.error(error.response.data);
       return rejectWithValue(error.response.data);
     }
   }
 );
 
-export const unfollowUserThunk = createAsyncThunk(
-  "/users/unfollowUser",
-  async ({ followUserId, authToken, dispatch }, { rejectWithValue }) => {
+export const editUserProfileThunk = createAsyncThunk(
+  "authenticate/editUserProfile",
+  async ({ userDetails, authToken }, { rejectWithValue }) => {
     try {
-      const response = await unfollowUserInServer(followUserId, authToken);
-      dispatch(editUserProfile({ userDetails: response.data.user, authToken }));
-      return response.data;
+      const resp = await editUser(userDetails, authToken);
+      return resp.data.user;
     } catch (error) {
+      toast.error("Couldn't Edit Profile! Please try again.");
       console.error(error.response.data);
-      toast.error("Couldn't unfollow user!");
       return rejectWithValue(error.response.data);
     }
   }
