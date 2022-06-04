@@ -8,7 +8,6 @@ export {
   deletePostThunk,
   likePostThunk,
   dislikePostThunk,
-  loadUserPostsThunk,
 } from "./postThunk";
 
 export {

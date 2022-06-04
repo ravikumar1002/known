@@ -1,8 +1,10 @@
+
+import { createAsyncThunk } from "@reduxjs/toolkit";
+
 import {
   editUser,
   getAllUsers,
   getUser,
-  getAllPostsOfUserFromServer,
 } from "../services";
 
 export const getAllUsersThunk = createAsyncThunk(
