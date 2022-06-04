@@ -32,7 +32,6 @@ export const SingleComments = ({ comment, post }) => {
     const [editCommentPara, setEditCommentPara] = useState({ comment: "" })
     const { authToken, authUser } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
-    console.log(authUser.username)
 
     const CommentEvent = (targetValue) => {
         setEditCommentPara((prev) => {

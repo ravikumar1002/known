@@ -8,7 +8,6 @@ export const addCommentToPostInServer = (
   commentData,
   authorization
 ) => {
-  console.log(postId, commentData, authorization);
   return axios.post(
     `/api/comments/add/${postId}`,
     { commentData },

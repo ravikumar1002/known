@@ -15,8 +15,6 @@ export const Home = () => {
     }, [authUser, posts]);
 
 
-    console.log(followingPosts)
-
     return (
         <div>
             <InputPostCard />

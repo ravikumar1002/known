@@ -33,7 +33,6 @@ export const Footer = ({ post }) => {
                 authToken: authToken
             }))
         }
-        console.log(post)
     }
     return (
         <Box>
@@ -45,7 +44,7 @@ export const Footer = ({ post }) => {
                         {userLikedOrNot ? <FavoriteIcon /> : <FavoriteBorderIcon />}
                     </IconButton>
                     <Typography variant="body-2" gutterBottom component="span">
-                        1
+                        {post?.likes?.likeCount}
                     </Typography>
                     <IconButton aria-label="comment" onClick={handleOpen} >
                         <CommentIcon />

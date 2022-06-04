@@ -36,7 +36,6 @@ export const CommentsSection = ({ postID }) => {
     }
 
     const postFn = (commentData) => {
-        console.log(postID, commentData, authToken)
         dispatch(addCommentThunk({
             postId : postID,
             commentData,

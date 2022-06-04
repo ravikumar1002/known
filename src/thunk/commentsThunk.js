@@ -22,8 +22,6 @@ export const getAllCommentsThunk = createAsyncThunk(
 export const addCommentThunk = createAsyncThunk(
   "/posts/addComment",
   async ({ postId, commentData, authToken }, { rejectWithValue }) => {
-
-    console.log( postId, commentData, authToken )
     try {
       const response = await addCommentToPostInServer(
         postId,
