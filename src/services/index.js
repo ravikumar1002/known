@@ -15,3 +15,9 @@ export {
   editCommentInServer,
   deleteCommentFromServer,
 } from "./commetns";
+
+export {
+  getAllUserService,
+  followUserService,
+  unFollowUserService,
+} from "./user";

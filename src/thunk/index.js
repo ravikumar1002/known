@@ -10,8 +10,10 @@ export {
 } from "./postThunk";
 
 export {
-  getAllCommentsThunk, 
+  getAllCommentsThunk,
   addCommentThunk,
   editCommentThunk,
   deleteCommentThunk,
 } from "./commentsThunk";
+
+export { getUsersThunk, followUserThunk, unfollowUserThunk } from "./userThunk";
