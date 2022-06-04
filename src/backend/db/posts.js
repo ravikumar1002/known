@@ -20,7 +20,58 @@ export const posts = [
       {
         _id: "asdfgh1234",
         username: "asdfgh1234",
-        text: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eligendi, facere!",
+        text: {
+          comment:
+            "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eligendi, facere!",
+        },
+        votes: {
+          upvotedBy: [],
+          downvotedBy: [],
+        },
+      },
+      {
+        _id: "asdfgh1235",
+        username: "asdfgh1234",
+        text: {
+          comment:
+            "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eligendi, facere!",
+        },
+        votes: {
+          upvotedBy: [],
+          downvotedBy: [],
+        },
+      },
+      {
+        _id: "asdfgh1236",
+        username: "asdfgh1234",
+        text: {
+          comment:
+            "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eligendi, facere!",
+        },
+        votes: {
+          upvotedBy: [],
+          downvotedBy: [],
+        },
+      },
+      {
+        _id: "asdfgh1237",
+        username: "asdfgh1234",
+        text: {
+          comment:
+            "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eligendi, facere!",
+        },
+        votes: {
+          upvotedBy: [],
+          downvotedBy: [],
+        },
+      },
+      {
+        _id: "asdfgh1238",
+        username: "asdfgh1234",
+        text: {
+          comment:
+            "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eligendi, facere!",
+        },
         votes: {
           upvotedBy: [],
           downvotedBy: [],
@@ -50,7 +101,7 @@ export const posts = [
     content:
       "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Possimus, consequatur?",
     likes: {
-      likeCount: 1,
+      likeCount: 0,
       likedBy: [],
       dislikedBy: [],
     },
@@ -58,7 +109,10 @@ export const posts = [
       {
         _id: "zxcvbn1234",
         username: "zxcvbn1234",
-        text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam in cupiditate minima?",
+        text: {
+          comment:
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam in cupiditate minima?",
+        },
         votes: {
           upvotedBy: [],
           downvotedBy: [],
