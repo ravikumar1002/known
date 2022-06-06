@@ -1,6 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { logoutUser } from "../../features";
-import { loadUserDetailsThunk, loadUserPostsThunk } from "../../thunk";
+import {
+  editUserProfileThunk,
+  loadUserDetailsThunk,
+  loadUserPostsThunk,
+} from "../../thunk";
 
 const profileSlice = createSlice({
   name: "profile",
@@ -33,6 +37,16 @@ const profileSlice = createSlice({
     },
     [loadUserPostsThunk.rejected]: (state, action) => {
       console.error(action.payload);
+    },
+    [editUserProfileThunk.pending]: (state) => {
+      state.profileLoading = "pending";
+    },
+    [editUserProfileThunk.fulfilled]: (state, action) => {
+      state.profileLoading = "fulfilled";
+      state.profileDetails = action.payload;
+    },
+    [editUserProfileThunk.rejected]: (state, action) => {
+      state.profileLoading = "Error";
     },
   },
 });

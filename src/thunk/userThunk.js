@@ -34,7 +34,7 @@ export const loadUserDetailsThunk = createAsyncThunk(
 );
 
 export const editUserProfileThunk = createAsyncThunk(
-  "authenticate/editUserProfile",
+  "auth/editUserProfile",
   async ({ userDetails, authToken }, { rejectWithValue }) => {
     try {
       const resp = await editUser(userDetails, authToken);

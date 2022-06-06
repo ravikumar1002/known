@@ -7,7 +7,7 @@ import Typography from "@mui/material/Typography";
 import Button from '@mui/material/Button';
 import { loadUserDetailsThunk, loadUserPostsThunk } from "../../thunk"
 import { useEffect, useState } from "react";
-import { PostCard } from "../../components";
+import { PostCard, ProfileEditModal } from "../../components";
 
 
 export const Profile = () => {
@@ -16,6 +16,8 @@ export const Profile = () => {
     const { postsDetails, profileDetails } = useSelector((state) => state.profile);
     const { username } = useParams();
     const { posts } = useSelector((state) => state.posts);
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
 
 
     useEffect(() => {
@@ -26,13 +28,13 @@ export const Profile = () => {
         }
     }, [username, posts, authUser]);
 
-
+    console.log(authUser)
 
     return (
         <>
             <Box sx={{ display: "flex", bgcolor: 'background.paper', padding: "1rem", borderRadius: "10px" }}>
                 <div style={{ padding: "1rem" }}>
-                    <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" sx={{ width: "5rem", height: "5rem" }} />
+                    <Avatar alt="Remy Sharp" src={profileDetails.profileImg} sx={{ width: "5rem", height: "5rem" }} />
                 </div>
                 <div style={{ flexGrow: "2", padding: "1rem" }}>
                     <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -48,7 +50,7 @@ export const Profile = () => {
                             </Typography>
                         </div>
                         <div>
-                            <Button variant="contained">Edit</Button>
+                            <Button onClick={handleOpen} variant="contained">Edit</Button>
                         </div>
                     </div>
                     <div>
@@ -65,11 +67,11 @@ export const Profile = () => {
                         </div>
                         <div>
                             {profileDetails?.followers.length} followers
-                        </div> 
+                        </div>
                     </div>
                     <div>
                         <Typography variant="body1" gutterBottom component="span">
-                            <a href={`${profileDetails?.links}`}>{profileDetails?.links}</a>
+                            <a href={`${profileDetails?.link}`}>{profileDetails?.link}</a>
                         </Typography>
                     </div>
                 </div>
@@ -79,6 +81,8 @@ export const Profile = () => {
                     <PostCard key={post._id} postData={post} authToken={authToken} />
                 )
             }) : <p>No posts</p>}
+
+            <ProfileEditModal open={open} setOpen={setOpen} userdata={authUser} />
         </>
 
     )

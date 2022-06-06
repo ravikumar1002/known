@@ -1,13 +1,15 @@
 import axios from "axios";
 
-export const editUser = (userData, authorization) =>
-  axios.post(
+export const editUser = (userData, authorization) => {
+  console.log(userData, authorization);
+  return axios.post(
     "/api/users/edit",
     { userData },
     {
       headers: { authorization },
     }
   );
+};
 
 export const getAllUsers = () => axios.get("/api/users");
 
