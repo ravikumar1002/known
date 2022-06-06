@@ -22,7 +22,6 @@ export const getAllUsersThunk = createAsyncThunk(
 export const loadUserDetailsThunk = createAsyncThunk(
   "/profile/loadUserDetails",
   async (username, { rejectWithValue }) => {
-    console.log(username)
     try {
       const response = await getUser(username);
       return response.data.user;

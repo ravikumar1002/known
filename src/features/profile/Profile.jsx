@@ -21,14 +21,12 @@ export const Profile = () => {
 
 
     useEffect(() => {
-        console.log(username)
         if (username) {
             dispatch(loadUserDetailsThunk(username));
             dispatch(loadUserPostsThunk(username));
         }
     }, [username, posts, authUser]);
 
-    console.log(authUser)
 
     return (
         <>

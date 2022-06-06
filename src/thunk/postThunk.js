@@ -25,7 +25,6 @@ export const getPostsThunk = createAsyncThunk(
 export const loadUserPostsThunk = createAsyncThunk(
   "/profile/loadUserPosts",
   async (username, { rejectWithValue }) => {
-    console.log(username)
     try {
       const response = await getAllPostsOfUserFromServer(username);
       return response.data.posts;

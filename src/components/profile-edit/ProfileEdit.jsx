@@ -55,11 +55,9 @@ export const ProfileEditModal = ({ open, setOpen, userData }) => {
     }
 
     const uploadImage = async (image) => {
-        console.log(image[0])
         const data = new FormData();
         data.append("file", image[0]);
         data.append("upload_preset", "avullsqo");
-        console.log(data.get("file"))
 
         const requestOptions = {
             method: "POST",
@@ -77,8 +75,6 @@ export const ProfileEditModal = ({ open, setOpen, userData }) => {
                 console.error(error);
             });;
     };
-
-    console.log(profileImg)
 
     return (
         <div>

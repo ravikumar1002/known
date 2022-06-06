@@ -48,7 +48,6 @@ export const signupHandler = function (schema, request) {
     );
     return new Response(201, {}, { createdUser, encodedToken });
   } catch (error) {
-    console.log(error)
     return new Response(
       500,
       {},
