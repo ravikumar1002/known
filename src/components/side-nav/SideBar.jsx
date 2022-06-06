@@ -8,6 +8,8 @@ import ListItemText from "@mui/material/ListItemText";
 import ExploreIcon from '@mui/icons-material/Explore';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import { Icon } from "@mui/material";
+import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 
 const drawerWidth = 240;
@@ -52,22 +54,57 @@ const ResponsiveHideText = styled(ListItemText)(({ theme }) => ({
 }));
 
 export const SideBar = () => {
-
+    const { authUser } = useSelector((state) => state.auth);
 
     return (
         <DrawerWrapper>
             <Box>
                 <DrawerLists>
-                    {['Home', 'Explore', 'Bookmarks', 'Liked'].map((text) => (
-                        <ListItem key={text} disablePadding>
+
+                    <ListItem disablePadding>
+                        <NavLink to={`/`}>
                             <ListItemButton>
                                 <ResponsiveIcon>
-                                    < Icon/>
+                                    < Icon />
                                 </ResponsiveIcon>
-                                <ResponsiveHideText primary={text} />
+                                <ResponsiveHideText primary={"Home"} />
                             </ListItemButton>
-                        </ListItem>
-                    ))}
+                        </NavLink>
+                    </ListItem>
+
+                    <ListItem disablePadding >
+                        <NavLink to={`/explore`}>
+                            <ListItemButton>
+                                <ResponsiveIcon>
+                                    < Icon />
+                                </ResponsiveIcon>
+                                <ResponsiveHideText primary={"Explore"} />
+                            </ListItemButton>
+                        </NavLink>
+                    </ListItem>
+
+                    <ListItem disablePadding >
+                        <NavLink to={`/bookmarks`}>
+                            <ListItemButton>
+                                <ResponsiveIcon>
+                                    < Icon />
+                                </ResponsiveIcon>
+                                <ResponsiveHideText primary={"Bookmarks"} />
+                            </ListItemButton>
+                        </NavLink>
+                    </ListItem>
+
+                    <ListItem disablePadding>
+                        <NavLink to={`/profile/${authUser.username}`}>
+                            <ListItemButton>
+                                <ResponsiveIcon>
+                                    < Icon />
+                                </ResponsiveIcon>
+                                <ResponsiveHideText primary={"profile"} />
+                            </ListItemButton>
+                        </NavLink>
+                    </ListItem>
+
                 </DrawerLists>
             </Box>
         </DrawerWrapper>

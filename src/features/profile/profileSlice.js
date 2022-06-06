@@ -7,18 +7,26 @@ const profileSlice = createSlice({
   initialState: {
     profileDetails: null,
     postsDetails: [],
+    profileLoading: "idle",
   },
   reducers: {},
   extraReducers: {
     [logoutUser]: (state) => {
       state.profileDetails = null;
       state.postsDetails = [];
+      state.profileLoading = "idle";
+    },
+    [loadUserDetailsThunk.loading]: (state, action) => {
+      state.profileLoading = "loading";
     },
     [loadUserDetailsThunk.fulfilled]: (state, action) => {
       state.profileDetails = action.payload;
     },
     [loadUserDetailsThunk.rejected]: (state, action) => {
       console.error(action.payload);
+    },
+    [loadUserPostsThunk.loading]: (state, action) => {
+      state.profileLoading = "loading";
     },
     [loadUserPostsThunk.fulfilled]: (state, action) => {
       state.postsDetails = action.payload;

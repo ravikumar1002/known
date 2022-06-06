@@ -11,4 +11,7 @@ export const editUser = (userData, authorization) =>
 
 export const getAllUsers = () => axios.get("/api/users");
 
-export const getUser = (username) => axios.get(`/api/users/${username}`);
+export const getUser = (username) => {
+  console.log(username);
+  return axios.get(`/api/users/${username}`);
+};
