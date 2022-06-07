@@ -12,7 +12,7 @@ import { PostCard, ProfileEditModal } from "../../components";
 
 export const Profile = () => {
     const dispatch = useDispatch()
-    const { authUser, authToken } = useSelector((state) => state.auth);
+    const { authUser, authToken } = useSelector((state) => state.auth);  
     const { postsDetails, profileDetails } = useSelector((state) => state.profile);
     const { username } = useParams();
     const { posts } = useSelector((state) => state.posts);
@@ -25,7 +25,7 @@ export const Profile = () => {
             dispatch(loadUserDetailsThunk(username));
             dispatch(loadUserPostsThunk(username));
         }
-    }, [username, posts, authUser]);
+    }, [username, posts, authUser, authToken]);
 
 
     return (

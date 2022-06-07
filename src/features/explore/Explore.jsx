@@ -24,7 +24,8 @@ export const Explore = () => {
                 )
             })}
 
-
+<div>
+</div>
         </div>
     )
 }
