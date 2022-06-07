@@ -32,7 +32,11 @@ export const Profile = () => {
         <>
             <Box sx={{ display: "flex", bgcolor: 'background.paper', padding: "1rem", borderRadius: "10px" }}>
                 <div style={{ padding: "1rem" }}>
-                    <Avatar alt="Remy Sharp" src={profileDetails?.profileImg} sx={{ width: "5rem", height: "5rem" }} />
+                    {profileDetails?.profileImg  ? 
+                    <Avatar alt={`${profileDetails?.username}`} src={profileDetails?.profileImg} sx={{ width: "5rem", height: "5rem" }} />
+                    : 
+                    <Avatar alt={`${profileDetails?.username}`} src="https://www.w3schools.com/howto/img_avatar.png" sx={{ width: "5rem", height: "5rem" }} />
+                    }
                 </div>
                 <div style={{ flexGrow: "2", padding: "1rem" }}>
                     <div style={{ display: "flex", justifyContent: "space-between" }}>
