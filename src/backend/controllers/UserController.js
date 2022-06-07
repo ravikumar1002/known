@@ -19,7 +19,7 @@ export const getAllUsersHandler = function () {
  * send GET Request at /api/users/:username
  * */
 
- export const getUserHandler = function (schema, request) {
+export const getUserHandler = function (schema, request) {
   const username = request.params.username;
   try {
     const user = schema.users.findBy({ username: username }).attrs;
@@ -122,7 +122,7 @@ export const bookmarkPostHandler = function (schema, request) {
       );
     }
     const isBookmarked = user.bookmarks.some(
-      (currPost) => currPost._id === postId
+      (currPostId) => currPostId === postId
     );
     if (isBookmarked) {
       return new Response(
@@ -131,7 +131,7 @@ export const bookmarkPostHandler = function (schema, request) {
         { errors: ["This Post is already bookmarked"] }
       );
     }
-    user.bookmarks.push(post);
+    user.bookmarks.push(post._id);
     this.db.users.update(
       { _id: user._id },
       { ...user, updatedAt: formatDate() }
@@ -169,13 +169,13 @@ export const removePostFromBookmarkHandler = function (schema, request) {
       );
     }
     const isBookmarked = user.bookmarks.some(
-      (currPost) => currPost._id === postId
+      (currPostId) => currPostId === postId
     );
     if (!isBookmarked) {
       return new Response(400, {}, { errors: ["Post not bookmarked yet"] });
     }
     const filteredBookmarks = user.bookmarks.filter(
-      (currPost) => currPost._id !== postId
+      (currPostId) => currPostId !== postId
     );
     user = { ...user, bookmarks: filteredBookmarks };
     this.db.users.update(

@@ -1,3 +1,4 @@
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import { addBookmarkInServer, removeBookmarkFromServer } from "../services";
 
 export const addBookmarkThunk = createAsyncThunk(

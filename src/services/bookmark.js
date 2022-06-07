@@ -1,3 +1,6 @@
+import axios from "axios";
+
+
 export const addBookmarkInServer = (postId, authorization) =>
   axios.post(
     `/api/users/bookmark/${postId}`,

@@ -10,7 +10,7 @@ import { useState } from 'react';
 import { TransitionsModal } from './PostModal';
 import { useDispatch, useSelector } from 'react-redux';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { likePostThunk, dislikePostThunk } from "../../../thunk"
+import { likePostThunk, dislikePostThunk, addBookmarkThunk, removeBookmarkThunk } from "../../../thunk"
 
 
 export const Footer = ({ post }) => {
@@ -19,10 +19,10 @@ export const Footer = ({ post }) => {
 
     const { authToken, authUser } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
-    const userLikedOrNot = post.likes.likedBy.find((likedUser) => likedUser.username === authUser.username)
-
+    const checkLiked = () => post.likes.likedBy.find((likedUser) => likedUser.username === authUser.username)
+    const checkedBookmark = () => authUser?.bookmarks.find((bookmarkId) => bookmarkId === post._id)
     const likeHandler = () => {
-        if (userLikedOrNot) {
+        if (checkLiked()) {
             dispatch(dislikePostThunk({
                 postId: post._id,
                 authToken: authToken
@@ -34,14 +34,31 @@ export const Footer = ({ post }) => {
             }))
         }
     }
+
+    const bookmarkHandler = () => {
+        if (checkedBookmark()) {
+            dispatch(removeBookmarkThunk({
+                postId: post._id,
+                authToken: authToken
+            }))
+        } else {
+
+            dispatch(addBookmarkThunk({
+                postId: post._id,
+                authToken: authToken
+            }))
+        }
+    }
+
+    console.log(authUser)
     return (
         <Box>
             <div style={{ display: "flex", width: "100%", justifyContent: "space-between", alignItems: "center", padding: "0.5rem" }}>
                 <div>
-                    <IconButton aria-label="like" onClick={() => {
+                    <IconButton aria-label="like" color={`${checkLiked() ? "error" : "default"}`} onClick={() => {
                         likeHandler()
                     }}>
-                        {userLikedOrNot ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+                        <FavoriteIcon />
                     </IconButton>
                     <Typography variant="body-2" gutterBottom component="span">
                         {post?.likes?.likeCount}
@@ -54,7 +71,9 @@ export const Footer = ({ post }) => {
                     </Typography>
                 </div>
                 <div>
-                    <IconButton aria-label="Bookmark">
+                    <IconButton aria-label="Bookmark" color={`${checkedBookmark() ? "error" : "default"}`} onClick={() => {
+                        bookmarkHandler()
+                    }}>
                         <BookmarkIcon />
                     </IconButton>
                 </div>
