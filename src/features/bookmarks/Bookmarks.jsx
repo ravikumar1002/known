@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 import { PostCard } from "../../components";
 
@@ -10,7 +10,9 @@ export const Bookmarks = () => {
     return (
         <div>
             {authUser.bookmarks.length === 0 ? <div>
-                <p>Bookmarks</p>
+                <Typography variant="h6" align='center'  gutterBottom component="div">
+                    No Bookmarks Yet
+                </Typography>
             </div> : authUser.bookmarks.map(postId => {
                 return (
                     <PostCard key={postId} postData={getPost(postId)} authToken={authToken} />

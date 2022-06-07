@@ -50,7 +50,6 @@ export const Footer = ({ post }) => {
         }
     }
 
-    console.log(authUser)
     return (
         <Box>
             <div style={{ display: "flex", width: "100%", justifyContent: "space-between", alignItems: "center", padding: "0.5rem" }}>
