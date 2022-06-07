@@ -24,3 +24,5 @@ export {
   loadUserDetailsThunk,
   editUserProfileThunk,
 } from "./userThunk";
+
+export {addBookmarkThunk, removeBookmarkThunk} from "./bookmarkThunk"
