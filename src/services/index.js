@@ -15,3 +15,8 @@ export {
   editCommentInServer,
   deleteCommentFromServer,
 } from "./commetns";
+
+export { editUser, getAllUsers, getUser } from "./user";
+
+export { followUserInServer, unfollowUserInServer } from "./follow";
+

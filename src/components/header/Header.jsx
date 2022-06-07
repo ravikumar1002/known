@@ -8,7 +8,9 @@ import InputBase from '@mui/material/InputBase';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import { Avatar, Menu, MenuItem, Tooltip } from '@mui/material';
-
+import { useDispatch } from "react-redux";
+import { logoutUser } from "../../features/auth/authSlice"
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
 const Search = styled('div')(({ theme }) => ({
@@ -58,7 +60,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export const Header = () => {
     const [anchorElNav, setAnchorElNav] = useState(null);
     const [anchorElUser, setAnchorElUser] = useState(null);
-
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
     };
@@ -74,7 +77,6 @@ export const Header = () => {
         setAnchorElUser(null);
     };
 
-    const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -128,11 +130,18 @@ export const Header = () => {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
-                            {settings.map((setting) => (
-                                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                    <Typography textAlign="center">{setting}</Typography>
-                                </MenuItem>
-                            ))}
+                            <MenuItem onClick={() => {
+                                navigate("/profile")
+                                handleCloseUserMenu()
+                            }} >
+                                <Typography textAlign="center">Profile</Typography>
+                            </MenuItem>
+                            <MenuItem onClick={() => {
+                                dispatch(logoutUser())
+                                handleCloseUserMenu()
+                            }} >
+                                <Typography textAlign="center">Logout</Typography>
+                            </MenuItem>
                         </Menu>
                     </Box>
                 </Toolbar>

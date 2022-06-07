@@ -1,5 +1,5 @@
 import "./App.css";
-import { Login, SignUp, Profile } from "./features";
+import { Login, SignUp, Profile, Explore, Bookmarks } from "./features";
 import { Routes, Route, Link } from "react-router-dom";
 import { RequireAuth } from "./features/auth/RequireAuth";
 import { PageLayout } from "./components";
@@ -32,7 +32,27 @@ function App() {
           }
         ></Route>
         <Route
-          path="/profile"
+          path="/bookmarks"
+          element={
+            <RequireAuth>
+              <PageLayout>
+                <Bookmarks />
+              </PageLayout>
+            </RequireAuth>
+          }
+        ></Route>
+        <Route
+          path="/explore"
+          element={
+            <RequireAuth>
+              <PageLayout>
+                <Explore />
+              </PageLayout>
+            </RequireAuth>
+          }
+        ></Route>
+        <Route
+          path="/profile/:username"
           element={
             <RequireAuth>
               <PageLayout>

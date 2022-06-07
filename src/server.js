@@ -102,7 +102,7 @@ export function makeServer({ environment = "development" } = {}) {
 
       // user routes (public)
       this.get("/users", getAllUsersHandler.bind(this));
-      this.get("/users/:userId", getUserHandler.bind(this));
+      this.get("/users/:username", getUserHandler.bind(this));
 
       // user routes (private)
       this.post("users/edit", editUserHandler.bind(this));
@@ -117,6 +117,8 @@ export function makeServer({ environment = "development" } = {}) {
         "/users/unfollow/:followUserId/",
         unfollowUserHandler.bind(this)
       );
+      this.passthrough();
+      this.passthrough("https://api.cloudinary.com/v1_1/kumarravi/image/upload", ["post"]);
     },
   });
 }

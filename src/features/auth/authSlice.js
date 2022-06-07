@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loginThunk, signupThunk } from "../../thunk";
+import { loginThunk, signupThunk} from "../../thunk";
 
 const initialState = {
   authToken: localStorage.getItem("authToken") ?? "",
