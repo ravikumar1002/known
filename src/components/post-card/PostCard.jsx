@@ -30,8 +30,13 @@ export const PostCard = ({ postData, authToken }) => {
 
     const [editPost, setEditPost] = useState(false)
     const dateFormat = new Date(postData.updatedAt).toLocaleDateString('en-GB')
+    const { users } = useSelector((state) => state.users);
+
     const dispatch = useDispatch();
 
+    const getUserAvatar = (username) => users.find(user => user.username === username)
+    
+    console.log(postData)
     return (
         <div style={{ margin: "1rem 0" }}>
             {editPost
@@ -43,7 +48,7 @@ export const PostCard = ({ postData, authToken }) => {
                 >
                     <div style={{ display: "flex", width: "100%", alignItems: "center", }}>
                         <Item>
-                            <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+                            <Avatar alt={postData.username} src={getUserAvatar(postData.username).profileImg} />
                         </Item>
                         <Item sx={{ flexGrow: 1 }}>
                             <Typography variant="h5" gutterBottom component="span">
@@ -71,7 +76,7 @@ export const PostCard = ({ postData, authToken }) => {
                         </Typography>
                     </div>
                     <div>
-                        <Footer post= {postData}/>
+                        <Footer post={postData} />
                     </div>
                 </Box>
             }

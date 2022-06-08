@@ -27,7 +27,8 @@ export const SignUp = () => {
             password: data.get('password'),
             email: data.get('email'),
             firstname: data.get("firstName"),
-            lastname: data.get("lastname")
+            lastname: data.get("lastname"),
+            profileImg: "https://www.w3schools.com/howto/img_avatar.png",
         }
         dispatch(signupThunk(dataFormat));
     }

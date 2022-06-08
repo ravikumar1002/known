@@ -14,7 +14,7 @@ export const users = [
     password: "Mercury",
     bio: "The best things come from living outside of your comfort zone",
     bookmarks: [],
-    avatarUrl:
+    profileImg:
       "https://res.cloudinary.com/kumarravi/image/upload/v1654615617/social-media/Mercury_zno1ys.jpg",
     website: "https://romabulani.netlify.app/",
     createdAt: "2022-01-01T10:55:06+05:30",
@@ -28,7 +28,7 @@ export const users = [
     password: "Mars",
     bio: "Scratch here ▒▒▒▒▒▒▒▒▒▒ to unveil my secret bio.",
     bookmarks: [],
-    avatarUrl:
+    profileImg:
       "https://res.cloudinary.com/kumarravi/image/upload/v1654615613/social-media/Mars_u73iou.jpg",
     website: "https://google.com/",
     createdAt: "2022-01-02T10:55:06+05:30",
@@ -42,7 +42,7 @@ export const users = [
     password: "Venus",
     bio: "What should I put here?",
     bookmarks: [],
-    avatarUrl:
+    profileImg:
     "https://res.cloudinary.com/kumarravi/image/upload/v1654615643/social-media/Venus_nwwxqd.jpg",
     website: "https://romabulani.netlify.app/",
     createdAt: "2022-01-01T10:55:06+05:30",
@@ -55,7 +55,7 @@ export const users = [
     username: "neptune",
     password: "Neptune",
     bio: "f I was a writer, I’d have a better Instagram bio quote",
-    avatarUrl:
+    profileImg:
       "https://res.cloudinary.com/kumarravi/image/upload/v1654615622/social-media/Neptune_d4mm1j.jpg",
     website: "https://romabulani.netlify.app/",
     createdAt: "2022-01-03T10:55:06+05:30",
@@ -70,7 +70,7 @@ export const users = [
     password: "Uranus",
     bio: "f “love is in the air,” why is the air so polluted?",
     bookmarks: [],
-    avatarUrl:
+    profileImg:
     "https://res.cloudinary.com/kumarravi/image/upload/v1654615637/social-media/Uranus_ton2b5.jpg",
     website: "https://romabulani.hashnode.dev/",
     createdAt: "2022-01-04T10:55:06+05:30",
@@ -85,7 +85,7 @@ export const users = [
     password: "Saturn",
     bio: "Follow me and I’ll follow back",
     bookmarks: [],
-    avatarUrl:
+    profileImg:
     "https://res.cloudinary.com/kumarravi/image/upload/v1654615630/social-media/Saturn_oj266y.jpg",
     website: "",
     createdAt: "2022-01-05T10:55:06+05:30",
@@ -100,7 +100,7 @@ export const users = [
     password: "Jupiter",
     bio: "I believe in bee-ing myself",
     bookmarks: [],
-    avatarUrl:
+    profileImg:
       "https://res.cloudinary.com/kumarravi/image/upload/v1654615590/social-media/Jupiter_ugbkxz.jpg",
     website: "",
     createdAt: "2022-01-06T10:55:06+05:30",

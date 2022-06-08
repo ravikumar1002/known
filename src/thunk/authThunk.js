@@ -4,6 +4,7 @@ import { loginCall, signUpCall } from "../services";
 export const signupThunk = createAsyncThunk(
   "auth/signupUser",
   async (userDetails, { rejectWithValue }) => {
+    console.log(userDetails)
     try {
       const response = await signUpCall(userDetails);
       return response.data;

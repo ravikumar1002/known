@@ -4,6 +4,7 @@ import {
   signupThunk,
   addBookmarkThunk, 
   removeBookmarkThunk,
+  editUserProfileThunk,
 } from "../../thunk";
 
 const initialState = {
@@ -13,6 +14,7 @@ const initialState = {
   authError: null,
   bookmarkStatus: "idle",
   bookmarkError: null,
+  editProfileStatus: "idle",
 };
 
 const authSlice = createSlice({
@@ -80,6 +82,16 @@ const authSlice = createSlice({
     [removeBookmarkThunk.rejected]: (state, action) => {
       state.bookmarkStatus = "rejected";
       state.bookmarkError = action.payload;
+    },
+    [editUserProfileThunk.pending]: (state) => {
+      state.editProfileStatus = "pending";
+    },
+    [editUserProfileThunk.fulfilled]: (state, action) => {
+      state.editProfileStatus = "fulfilled";
+      state.authUser = action.payload;
+    },
+    [editUserProfileThunk.rejected]: (state, action) => {
+      state.editProfileStatus = "Error";
     },
   },
 });
