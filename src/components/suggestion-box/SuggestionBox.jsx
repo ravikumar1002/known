@@ -9,7 +9,7 @@ import Typography from '@mui/material/Typography';
 import { Button } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import Divider from '@mui/material/Divider';
-import { followUserThunk, editUserProfileThunk } from "../../thunk"
+import { followUserThunk } from "../../thunk"
 import { Link } from 'react-router-dom';
 
 
