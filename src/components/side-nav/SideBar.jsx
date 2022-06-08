@@ -10,7 +10,8 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 import { Icon } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
-
+import { Home } from "@mui/icons-material";
+import PersonIcon from '@mui/icons-material/Person';
 
 const drawerWidth = 240;
 
@@ -21,6 +22,7 @@ const DrawerWrapper = styled(Box)(({ theme }) => ({
     whiteSpace: "nowrap",
     boxSizing: "border-box",
     height: "100vh",
+    position: "fixed",
     [theme.breakpoints.down("sm")]: {
         display: "flex",
         width: "100%",
@@ -56,49 +58,63 @@ const ResponsiveHideText = styled(ListItemText)(({ theme }) => ({
 export const SideBar = () => {
     const { authUser } = useSelector((state) => state.auth);
 
+    const activeStyle = {
+        color: "black",
+        backgroundColor: "white",
+        borderRadius: "50%",
+        borderRadius: "5px",
+        textDecoration: "none",
+    };
+
+    const deactiveStyle = {
+        color: "black",
+        textDecoration: "none",
+    };
+
+    const getActiveStyle = ({ isActive }) => isActive ? activeStyle : deactiveStyle;
+
     return (
         <DrawerWrapper>
             <Box>
                 <DrawerLists>
-
-                    <ListItem disablePadding>
-                        <NavLink to={`/`}>
+                    <ListItem disablePadding sx={{display: "block", width: "100%"}}>
+                        <NavLink to="/" style={getActiveStyle}>
                             <ListItemButton>
                                 <ResponsiveIcon>
-                                    < Icon />
+                                    < Home />
                                 </ResponsiveIcon>
                                 <ResponsiveHideText primary={"Home"} />
                             </ListItemButton>
                         </NavLink>
                     </ListItem>
 
-                    <ListItem disablePadding >
-                        <NavLink to={`/explore`}>
+                    <ListItem disablePadding sx={{display: "block", width: "100%"}}>
+                        <NavLink to="/explore" style={getActiveStyle}>
                             <ListItemButton>
                                 <ResponsiveIcon>
-                                    < Icon />
+                                    < ExploreIcon />
                                 </ResponsiveIcon>
                                 <ResponsiveHideText primary={"Explore"} />
                             </ListItemButton>
                         </NavLink>
                     </ListItem>
 
-                    <ListItem disablePadding >
-                        <NavLink to={`/bookmarks`}>
+                    <ListItem disablePadding sx={{display: "block", width: "100%"}}>
+                        <NavLink to="/bookmarks" style={getActiveStyle}>
                             <ListItemButton>
                                 <ResponsiveIcon>
-                                    < Icon />
+                                    < BookmarkIcon />
                                 </ResponsiveIcon>
                                 <ResponsiveHideText primary={"Bookmarks"} />
                             </ListItemButton>
                         </NavLink>
                     </ListItem>
 
-                    <ListItem disablePadding>
-                        <NavLink to={`/profile/${authUser.username}`}>
+                    <ListItem disablePadding sx={{display: "block", width: "100%"}}>
+                        <NavLink to={`/profile/${authUser.username}`} style={getActiveStyle}>
                             <ListItemButton>
                                 <ResponsiveIcon>
-                                    < Icon />
+                                    <PersonIcon />
                                 </ResponsiveIcon>
                                 <ResponsiveHideText primary={"profile"} />
                             </ListItemButton>

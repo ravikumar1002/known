@@ -8,6 +8,7 @@ import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import { Button } from '@mui/material';
 import { useSelector } from 'react-redux';
+import Divider from '@mui/material/Divider';
 
 
 export const SuggestionBox = () => {
@@ -29,31 +30,47 @@ export const SuggestionBox = () => {
     console.log(allSuggestion)
 
     return (
-        <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-            <ListItem sx={{ display: "flex", alignItems: "center", gap: "0.5rem", flexWrap: "wrap", }}>
-                <ListItemAvatar>
-                    <Avatar alt={authUser?.firstName } src={authUser?.profileImg } />
-                </ListItemAvatar>
-                <ListItemText
-                    primary="Oui Oui"
-                    secondary={
-                        <>
-                            <Typography
-                                sx={{ display: 'inline' }}
-                                component="span"
-                                variant="body2"
-                                color="text.primary"
-                            >
-                                Sandra Adams
-                            </Typography>
-                        </>
-                    }
-                />
-                <Button variant="outlined" size="small" sx={{ alignSelf: "auto", marginLeft: "1rem", }}>
-                    Follow
-                </Button>
-
+        <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper', borderRadius: "10px" , height: "60%", overflow: "auto", position: "fixed",}}>
+            <ListItem>
+                <Typography
+                    // sx={{ display: 'inline' }}
+                    component="h6"
+                    variant="h6"
+                    color="text.primary"
+                    sx={{ fontWeight: "600" }}
+                >
+                    Who to follow
+                </Typography>
             </ListItem>
+            <Divider />
+            {allSuggestion.length > 0 && allSuggestion.map((user) => {
+                return (
+                    <ListItem key={user._id}sx={{ display: "flex", alignItems: "center", gap: "0.5rem", flexWrap: "wrap", }}>
+                        <ListItemAvatar>
+                            <Avatar alt={user?.firstName} src={user?.profileImg} />
+                        </ListItemAvatar>
+                        <ListItemText
+                            primary={`${user.firstName} ${user.lastName}`}
+                            secondary={
+                                <>
+                                    <Typography
+                                        sx={{ display: 'inline' }}
+                                        component="span"
+                                        variant="body2"
+                                        color="text.primary"
+                                    >
+                                        {user.username}
+                                    </Typography>
+                                </>
+                            }
+                        />
+                        <Button variant="outlined" size="small" sx={{ alignSelf: "auto", marginLeft: "1rem", }}>
+                            Follow
+                        </Button>
+                    </ListItem>
+                )
+            })}
+
         </List >
     );
 }
