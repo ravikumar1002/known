@@ -10,6 +10,7 @@ import { Button } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import Divider from '@mui/material/Divider';
 import { followUserThunk, editUserProfileThunk } from "../../thunk"
+import { Link } from 'react-router-dom';
 
 
 export const SuggestionBox = () => {
@@ -48,25 +49,31 @@ export const SuggestionBox = () => {
             <Divider />
             {allSuggestion.length > 0 && allSuggestion.map((user) => {
                 return (
-                    <ListItem key={user._id} sx={{ display: "flex", alignItems: "center", gap: "0.5rem", flexWrap: "wrap", }}>
-                        <ListItemAvatar>
-                            <Avatar alt={user?.firstName} src={user?.profileImg} />
-                        </ListItemAvatar>
-                        <ListItemText
-                            primary={`${user.firstName} ${user.lastName}`}
-                            secondary={
-                                <>
-                                    <Typography
-                                        sx={{ display: 'inline' }}
-                                        component="span"
-                                        variant="body2"
-                                        color="text.primary"
-                                    >
-                                        @{user.username}
-                                    </Typography>
-                                </>
-                            }
-                        />
+                    <ListItem key={user._id} sx={{ display: "flex", alignItems: "center", gap: "0.5rem", flexWrap: "wrap", justifyContent: "space-between" }}>
+                        <div style={{display: "flex",alignItems: "center",}}>
+                        <Link to={`/profile/${user.username}`}>
+                            <ListItemAvatar>
+                                <Avatar alt={user?.firstName} src={user?.profileImg} />
+                            </ListItemAvatar>
+                        </Link>
+                        <Link to={`/profile/${user.username}`}>
+                            <ListItemText
+                                primary={`${user.firstName} ${user.lastName}`}
+                                secondary={
+                                    <>
+                                        <Typography
+                                            sx={{ display: 'inline' }}
+                                            component="span"
+                                            variant="body2"
+                                            color="text.primary"
+                                        >
+                                            @{user.username}
+                                        </Typography>
+                                    </>
+                                }
+                            />
+                        </Link>
+                        </div>
                         <Button variant="outlined" size="small" sx={{ alignSelf: "auto", marginLeft: "1rem", }} onClick={() => {
                             followHandler(user._id)
                         }}>

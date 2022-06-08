@@ -7,6 +7,7 @@ import { PostMenu, Footer } from "./components"
 import { deletePostThunk } from '../../thunk';
 import { useDispatch, useSelector } from "react-redux";
 import MenuItem from '@mui/material/MenuItem';
+import { Link } from "react-router-dom";
 
 const Item = (props) => {
     const { sx, ...other } = props;
@@ -35,7 +36,7 @@ export const PostCard = ({ postData, authToken }) => {
     const dispatch = useDispatch();
 
     const getUserAvatar = (username) => users.find(user => user.username === username)
-    
+
     return (
         <div style={{ margin: "1rem 0" }}>
             {editPost
@@ -46,13 +47,16 @@ export const PostCard = ({ postData, authToken }) => {
                     sx={{ p: 1, bgcolor: 'background.paper', borderRadius: 1 }}
                 >
                     <div style={{ display: "flex", width: "100%", alignItems: "center", }}>
+
                         <Item>
-                            <Avatar alt={postData.username} src={getUserAvatar(postData.username).profileImg} />
+                            <Link to={`/profile/${postData.username}`} >
+                                <Avatar alt={postData.username} src={getUserAvatar(postData.username).profileImg} />
+                            </Link>
                         </Item>
                         <Item sx={{ flexGrow: 1 }}>
-                            <Typography variant="h5" gutterBottom component="span">
+                            <Link to={`/profile/${postData.username}`} variant="h5" gutterBottom component="span">
                                 {postData.username}
-                            </Typography>
+                            </Link>
                             <Typography variant="subtitle2" gutterBottom component="span" sx={{ marginLeft: "1rem" }}>
                                 {dateFormat}
                             </Typography>

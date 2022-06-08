@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import Box from '@mui/material/Box';
 import { logoutUser } from "../auth/authSlice"
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import Typography from "@mui/material/Typography";
 import Button from '@mui/material/Button';
@@ -21,7 +21,7 @@ export const Profile = () => {
     };
 
     const { authUser, authToken } = useSelector((state) => state.auth);
-    const { postsDetails, profileDetails } = useSelector((state) => state.profile);
+    const { postsDetails, profileDetails, profileLoading, postLoading } = useSelector((state) => state.profile);
     const { users } = useSelector((state) => state.users);
     const { username } = useParams();
     const { posts } = useSelector((state) => state.posts);
@@ -33,7 +33,7 @@ export const Profile = () => {
             dispatch(loadUserDetailsThunk(username));
             dispatch(loadUserPostsThunk(username));
         }
-    }, [username, posts, authUser, authToken]);
+    }, [username, posts, users, authUser, authToken]);
 
 
     const unfollowHandler = (followUserId) => {
@@ -44,12 +44,13 @@ export const Profile = () => {
         dispatch(followUserThunk({ followUserId: followUserId, authToken: authToken }))
     }
 
-    const isFollowed = (username) => users.map(user => user.username === username)
+    const isFollowed = (username) => authUser.following.find(user => user.username === username)
 
-
+    console.log(profileLoading, postLoading)
+    console.log(isFollowed(profileDetails?._username))
 
     return (
-        <>
+        <> {profileLoading === "loading" ? <p>Loading</p> :
             <Box sx={{ display: "flex", bgcolor: 'background.paper', padding: "1rem", borderRadius: "10px" }}>
                 <div style={{ padding: "1rem" }}>
                     {profileDetails?.profileImg ?
@@ -65,7 +66,7 @@ export const Profile = () => {
                                 fontWeight: "800",
                                 marginBottom: "0",
                             }} gutterBottom component="span">
-                                {`${profileDetails?.firstname} ${profileDetails?.lastname}`}
+                                {`${profileDetails?.firstName} ${profileDetails?.lastName}`}
                             </Typography>
                             <Typography variant="subtitle2" gutterBottom component="span">
                                 {profileDetails?.username}
@@ -74,7 +75,7 @@ export const Profile = () => {
                         <div>
                             {authUser.username === username ?
                                 <Button onClick={handleOpenEdit} variant="contained">Edit</Button> :
-                                isFollowed(profileDetails?._id) ?
+                                isFollowed(profileDetails?.username) ?
                                     <Button onClick={() => {
                                         unfollowHandler(profileDetails._id)
                                     }} variant="contained">unfollow</Button>
@@ -107,38 +108,47 @@ export const Profile = () => {
                         </Typography>
                     </div>
                 </div>
-            </Box>
-            {postsDetails.length > 0 ? postsDetails.map((post) => {
-                return (
-                    <PostCard key={post._id} postData={post} authToken={authToken} />
-                )
-            }) : <p>No posts</p>}
+            </Box>}
+            {postLoading === "loading" ? <p>Post Loading</p> : <>
+                {postsDetails.length > 0 ? postsDetails.map((post) => {
+                    return (
+                        <PostCard key={post._id} postData={post} authToken={authToken} />
+                    )
+                }) : <p>No posts</p>}
+            </>
+            }
 
             <ProfileEditModal open={openEdit} setOpen={setOpenEdit} userdata={authUser} />
-            <ModalBox open={openFollowingModal} setOpen={setOpenFollowingModal} userdata={authUser}>
+            {authUser.username === username && <ModalBox open={openFollowingModal} setOpen={setOpenFollowingModal} userdata={authUser}>
                 {
                     authUser.following.length > 0 ?
                         authUser.following.map((followingUser) => {
                             return (
                                 <Box key={followingUser._id} sx={{ display: "flex", alignItems: "center", gap: "0.5rem", flexWrap: "wrap", }}>
-                                    <ListItemAvatar>
-                                        <Avatar alt={followingUser?.firstName} src={followingUser?.profileImg} />
-                                    </ListItemAvatar>
-                                    <ListItemText
-                                        primary={`${followingUser.firstName} ${followingUser.lastName}`}
-                                        secondary={
-                                            <>
-                                                <Typography
-                                                    sx={{ display: 'inline' }}
-                                                    component="span"
-                                                    variant="body2"
-                                                    color="text.primary"
-                                                >
-                                                    {followingUser.username}
-                                                </Typography>
-                                            </>
-                                        }
-                                    />
+                                    <div style={{ display: "flex", alignItems: "center", }}>
+                                        <Link to={`/profile/${followingUser.username}`}>
+                                            <ListItemAvatar>
+                                                <Avatar alt={followingUser?.firstName} src={followingUser?.profileImg} />
+                                            </ListItemAvatar>
+                                        </Link>
+                                        <Link to={`/profile/${followingUser.username}`}>
+                                            <ListItemText
+                                                primary={`${followingUser.firstName} ${followingUser.lastName}`}
+                                                secondary={
+                                                    <>
+                                                        <Typography
+                                                            sx={{ display: 'inline' }}
+                                                            component="span"
+                                                            variant="body2"
+                                                            color="text.primary"
+                                                        >
+                                                            {followingUser.username}
+                                                        </Typography>
+                                                    </>
+                                                }
+                                            />
+                                        </Link>
+                                    </div>
                                     <Button variant="outlined" size="small" sx={{ alignSelf: "auto", marginLeft: "1rem", }} onClick={() => {
                                         unfollowHandler(followingUser._id)
                                     }}>
@@ -151,7 +161,7 @@ export const Profile = () => {
                             start follwoing
                         </div>
                 }
-            </ModalBox>
+            </ModalBox>}
         </>
 
     )
