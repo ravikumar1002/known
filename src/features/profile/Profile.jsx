@@ -46,7 +46,7 @@ export const Profile = () => {
                                 fontWeight: "800",
                                 marginBottom: "0",
                             }} gutterBottom component="span">
-                                {`${profileDetails?.firstName} ${profileDetails?.lastName}`}
+                                {`${profileDetails?.firstname} ${profileDetails?.lastname}`}
                             </Typography>
                             <Typography variant="subtitle2" gutterBottom component="span">
                                 {profileDetails?.username}

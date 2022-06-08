@@ -7,33 +7,38 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import { Button } from '@mui/material';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Divider from '@mui/material/Divider';
+import { followUserThunk, editUserProfileThunk } from "../../thunk"
 
 
 export const SuggestionBox = () => {
-    const { authUser } = useSelector((state) => state.auth);
+    const { authUser, authToken } = useSelector((state) => state.auth);
     const { users } = useSelector((state) => state.users);
     const [allSuggestion, setAllSeggestion] = useState([])
+    const dispatch = useDispatch();
 
     useEffect(() => {
+        console.log(authUser)
         const getUnfollowProfile = users.filter(
             (user) =>
                 !authUser.following.find(
                     (innerCurrUser) => innerCurrUser._id === user._id
                 ) && user.username !== authUser.username
         )
-
+            console.log(getUnfollowProfile)
         setAllSeggestion(getUnfollowProfile)
     }, [authUser, users]);
 
-    console.log(allSuggestion)
+    const followHandler = (followUserId) => {
+        dispatch(followUserThunk({ followUserId: followUserId, authToken: authToken }))
+    }
+
 
     return (
-        <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper', borderRadius: "10px" , height: "60%", overflow: "auto", position: "fixed",}}>
+        <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper', borderRadius: "10px", height: "60%", overflow: "auto", position: "fixed", }}>
             <ListItem>
                 <Typography
-                    // sx={{ display: 'inline' }}
                     component="h6"
                     variant="h6"
                     color="text.primary"
@@ -45,7 +50,7 @@ export const SuggestionBox = () => {
             <Divider />
             {allSuggestion.length > 0 && allSuggestion.map((user) => {
                 return (
-                    <ListItem key={user._id}sx={{ display: "flex", alignItems: "center", gap: "0.5rem", flexWrap: "wrap", }}>
+                    <ListItem key={user._id} sx={{ display: "flex", alignItems: "center", gap: "0.5rem", flexWrap: "wrap", }}>
                         <ListItemAvatar>
                             <Avatar alt={user?.firstName} src={user?.profileImg} />
                         </ListItemAvatar>
@@ -64,7 +69,9 @@ export const SuggestionBox = () => {
                                 </>
                             }
                         />
-                        <Button variant="outlined" size="small" sx={{ alignSelf: "auto", marginLeft: "1rem", }}>
+                        <Button variant="outlined" size="small" sx={{ alignSelf: "auto", marginLeft: "1rem", }} onClick={() => {
+                            followHandler(user._id)
+                        }}>
                             Follow
                         </Button>
                     </ListItem>

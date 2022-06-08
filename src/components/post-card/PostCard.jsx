@@ -36,7 +36,7 @@ export const PostCard = ({ postData, authToken }) => {
 
     const getUserAvatar = (username) => users.find(user => user.username === username)
     
-    console.log(postData)
+    // console.log(postData)
     return (
         <div style={{ margin: "1rem 0" }}>
             {editPost
