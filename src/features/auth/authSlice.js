@@ -98,7 +98,6 @@ const authSlice = createSlice({
       state.editProfileStatus = "Error";
     },
     [followUserThunk.fulfilled]: (state, action) => {
-      console.log(action.payload)
       state.authUser =action.payload.user
       state.followStatus = "fulfilled";
     },

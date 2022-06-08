@@ -6,7 +6,6 @@ export const followUserThunk = createAsyncThunk(
   async ({ followUserId, authToken }, { rejectWithValue }) => {
     try {
       const response = await followUserInServer(followUserId, authToken);
-      console.log(response)
       return response.data;
     } catch (error) {
       console.error(error.response.data);

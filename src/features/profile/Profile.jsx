@@ -8,17 +8,25 @@ import Button from '@mui/material/Button';
 import { loadUserDetailsThunk, loadUserPostsThunk } from "../../thunk"
 import { useEffect, useState } from "react";
 import { PostCard, ProfileEditModal } from "../../components";
-
+import { ModalBox } from "../../components"
+import ListItemText from '@mui/material/ListItemText';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import { unfollowUserThunk, followUserThunk } from "../../thunk"
 
 export const Profile = () => {
     const dispatch = useDispatch()
+    const [openFollowingModal, setOpenFollowingModal] = useState(false);
+    const handleOpenFollowingModal = () => {
+        setOpenFollowingModal(true)
+    };
+
     const { authUser, authToken } = useSelector((state) => state.auth);
     const { postsDetails, profileDetails } = useSelector((state) => state.profile);
+    const { users } = useSelector((state) => state.users);
     const { username } = useParams();
     const { posts } = useSelector((state) => state.posts);
-    const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(true);
-
+    const [openEdit, setOpenEdit] = useState(false);
+    const handleOpenEdit = () => setOpenEdit(true);
 
     useEffect(() => {
         if (username) {
@@ -26,7 +34,18 @@ export const Profile = () => {
             dispatch(loadUserPostsThunk(username));
         }
     }, [username, posts, authUser, authToken]);
-    console.log(profileDetails, authUser)
+
+
+    const unfollowHandler = (followUserId) => {
+        dispatch(unfollowUserThunk({ followUserId: followUserId, authToken: authToken }))
+    }
+
+    const followHandler = (followUserId) => {
+        dispatch(followUserThunk({ followUserId: followUserId, authToken: authToken }))
+    }
+
+    const isFollowed = (username) => users.map(user => user.username === username)
+
 
 
     return (
@@ -53,19 +72,29 @@ export const Profile = () => {
                             </Typography>
                         </div>
                         <div>
-                            <Button onClick={handleOpen} variant="contained">Edit</Button>
+                            {authUser.username === username ?
+                                <Button onClick={handleOpenEdit} variant="contained">Edit</Button> :
+                                isFollowed(profileDetails?._id) ?
+                                    <Button onClick={() => {
+                                        unfollowHandler(profileDetails._id)
+                                    }} variant="contained">unfollow</Button>
+                                    :
+                                    <Button onClick={() => {
+                                        followHandler(profileDetails._id)
+                                    }} variant="contained">follow</Button>
+                            }
                         </div>
                     </div>
                     <div>
                         <Typography variant="subtitle1" gutterBottom component="span">
-                            { profileDetails?.bio}
+                            {profileDetails?.bio}
                         </Typography>
                     </div>
                     <div style={{ display: "flex", justifyContent: "space-evenly" }}>
                         <div>
                             {postsDetails.length} posts
                         </div>
-                        <div>
+                        <div onClick={handleOpenFollowingModal}>
                             {profileDetails?.following.length} following
                         </div>
                         <div>
@@ -74,7 +103,7 @@ export const Profile = () => {
                     </div>
                     <div>
                         <Typography variant="body1" gutterBottom component="span">
-                             <a href={`${profileDetails?.link}`}>{profileDetails?.link}</a>
+                            <a href={`${profileDetails?.link}`}>{profileDetails?.link}</a>
                         </Typography>
                     </div>
                 </div>
@@ -85,7 +114,44 @@ export const Profile = () => {
                 )
             }) : <p>No posts</p>}
 
-            <ProfileEditModal open={open} setOpen={setOpen} userdata={authUser} />
+            <ProfileEditModal open={openEdit} setOpen={setOpenEdit} userdata={authUser} />
+            <ModalBox open={openFollowingModal} setOpen={setOpenFollowingModal} userdata={authUser}>
+                {
+                    authUser.following.length > 0 ?
+                        authUser.following.map((followingUser) => {
+                            return (
+                                <Box key={followingUser._id} sx={{ display: "flex", alignItems: "center", gap: "0.5rem", flexWrap: "wrap", }}>
+                                    <ListItemAvatar>
+                                        <Avatar alt={followingUser?.firstName} src={followingUser?.profileImg} />
+                                    </ListItemAvatar>
+                                    <ListItemText
+                                        primary={`${followingUser.firstName} ${followingUser.lastName}`}
+                                        secondary={
+                                            <>
+                                                <Typography
+                                                    sx={{ display: 'inline' }}
+                                                    component="span"
+                                                    variant="body2"
+                                                    color="text.primary"
+                                                >
+                                                    {followingUser.username}
+                                                </Typography>
+                                            </>
+                                        }
+                                    />
+                                    <Button variant="outlined" size="small" sx={{ alignSelf: "auto", marginLeft: "1rem", }} onClick={() => {
+                                        unfollowHandler(followingUser._id)
+                                    }}>
+                                        unfollow
+                                    </Button>
+                                </Box>
+                            )
+                        })
+                        : <div>
+                            start follwoing
+                        </div>
+                }
+            </ModalBox>
         </>
 
     )

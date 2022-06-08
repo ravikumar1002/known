@@ -19,14 +19,12 @@ export const SuggestionBox = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        console.log(authUser)
         const getUnfollowProfile = users.filter(
             (user) =>
                 !authUser.following.find(
                     (innerCurrUser) => innerCurrUser._id === user._id
                 ) && user.username !== authUser.username
         )
-            console.log(getUnfollowProfile)
         setAllSeggestion(getUnfollowProfile)
     }, [authUser, users]);
 
