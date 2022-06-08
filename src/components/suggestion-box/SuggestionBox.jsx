@@ -62,7 +62,7 @@ export const SuggestionBox = () => {
                                         variant="body2"
                                         color="text.primary"
                                     >
-                                        {user.username}
+                                        @{user.username}
                                     </Typography>
                                 </>
                             }

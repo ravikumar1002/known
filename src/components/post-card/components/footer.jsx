@@ -7,7 +7,7 @@ import { Typography } from '@mui/material';
 import { CommentsSection } from "./CommentsSection"
 import Box from '@mui/material/Box'
 import { useState } from 'react';
-import { TransitionsModal } from './PostModal';
+import { AllCommentsModal } from './PostModal';
 import { useDispatch, useSelector } from 'react-redux';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { likePostThunk, dislikePostThunk, addBookmarkThunk, removeBookmarkThunk } from "../../../thunk"
@@ -78,7 +78,7 @@ export const Footer = ({ post }) => {
                 </div>
             </div>
             <CommentsSection postID={post._id} />
-            <TransitionsModal open={open} setOpen={setOpen} handleOpen={handleOpen} post={post} />
+            <AllCommentsModal open={open} setOpen={setOpen} handleOpen={handleOpen} post={post} />
         </Box>
     )
 }

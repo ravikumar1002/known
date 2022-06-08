@@ -31,6 +31,8 @@ export const SingleComments = ({ comment, post }) => {
     const [editComment, setEditComment] = useState(false)
     const [editCommentPara, setEditCommentPara] = useState({ comment: "" })
     const { authToken, authUser } = useSelector((state) => state.auth);
+    const { users } = useSelector((state) => state.users);
+
     const dispatch = useDispatch();
 
     const CommentEvent = (targetValue) => {
@@ -41,11 +43,14 @@ export const SingleComments = ({ comment, post }) => {
             }
         })
     }
+
+    const getUserDetail = (username) => users.find((user) => user.username === username)
+
     return (
         <div>
             <div style={{ display: "flex", width: "100%", alignItems: "center", }}>
                 <Item>
-                    <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+                    <Avatar alt={comment.username} src={getUserDetail(comment.username).profileImg} />
                 </Item>
                 <Item sx={{ flexGrow: 1 }}>
                     <Typography variant="h6" gutterBottom component="span">

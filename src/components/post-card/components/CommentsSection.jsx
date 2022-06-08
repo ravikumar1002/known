@@ -24,6 +24,7 @@ export const CommentsSection = ({ postID }) => {
 
     const [commentPara, setCommentPara] = useState({ comment: "" })
     const { authToken } = useSelector((state) => state.auth);
+
     const dispatch = useDispatch();
 
     const CommentEvent = (targetValue) => {
@@ -45,6 +46,7 @@ export const CommentsSection = ({ postID }) => {
             comment: ""
         })
     }
+
 
     return (
 

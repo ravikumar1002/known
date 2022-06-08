@@ -3,6 +3,7 @@ import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import { SingleComments } from './SingleComments';
 import Box from '@mui/material/Box';
+import { useSelector } from 'react-redux';
 
 
 const style = {
@@ -19,7 +20,7 @@ const style = {
 };
 
 
-export const TransitionsModal = ({ commentData, open, setOpen, handleOpen, post }) => {
+export const AllCommentsModal = ({ commentData, open, setOpen, handleOpen, post }) => {
 
     const handleClose = () => setOpen(false);
 
