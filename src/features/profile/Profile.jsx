@@ -12,21 +12,29 @@ import { ModalBox } from "../../components"
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import { unfollowUserThunk, followUserThunk } from "../../thunk"
+import { FollowerLayout } from "./follower";
 
 export const Profile = () => {
     const dispatch = useDispatch()
+    const [openEdit, setOpenEdit] = useState(false);
     const [openFollowingModal, setOpenFollowingModal] = useState(false);
-    const handleOpenFollowingModal = () => {
-        setOpenFollowingModal(true)
-    };
+    const [openFollowersModal, setOpenFollowersModal] = useState(false);
+
+
 
     const { authUser, authToken } = useSelector((state) => state.auth);
     const { postsDetails, profileDetails, profileLoading, postLoading } = useSelector((state) => state.profile);
     const { users } = useSelector((state) => state.users);
     const { username } = useParams();
     const { posts } = useSelector((state) => state.posts);
-    const [openEdit, setOpenEdit] = useState(false);
     const handleOpenEdit = () => setOpenEdit(true);
+    const handleOpenFollowersModal = () => {
+        setOpenFollowersModal(true)
+    };
+
+    const handleOpenFollowingModal = () => {
+        setOpenFollowingModal(true)
+    };
 
     useEffect(() => {
         if (username) {
@@ -95,10 +103,10 @@ export const Profile = () => {
                         <div>
                             {postsDetails.length} posts
                         </div>
-                        <div onClick={handleOpenFollowingModal}>
+                        <div onClick={handleOpenFollowingModal} style={{ cursor: "pointer" }}>
                             {profileDetails?.following.length} following
                         </div>
-                        <div>
+                        <div onClick={handleOpenFollowersModal} style={{ cursor: "pointer" }}>
                             {profileDetails?.followers.length} followers
                         </div>
                     </div>
@@ -124,43 +132,28 @@ export const Profile = () => {
                     authUser.following.length > 0 ?
                         authUser.following.map((followingUser) => {
                             return (
-                                <Box key={followingUser._id} sx={{ display: "flex", alignItems: "center", gap: "0.5rem", flexWrap: "wrap", }}>
-                                    <div style={{ display: "flex", alignItems: "center", }}>
-                                        <Link to={`/profile/${followingUser.username}`}>
-                                            <ListItemAvatar>
-                                                <Avatar alt={followingUser?.firstName} src={followingUser?.profileImg} />
-                                            </ListItemAvatar>
-                                        </Link>
-                                        <Link to={`/profile/${followingUser.username}`}>
-                                            <ListItemText
-                                                primary={`${followingUser.firstName} ${followingUser.lastName}`}
-                                                secondary={
-                                                    <>
-                                                        <Typography
-                                                            sx={{ display: 'inline' }}
-                                                            component="span"
-                                                            variant="body2"
-                                                            color="text.primary"
-                                                        >
-                                                            {followingUser.username}
-                                                        </Typography>
-                                                    </>
-                                                }
-                                            />
-                                        </Link>
-                                    </div>
-                                    <Button variant="outlined" size="small" sx={{ alignSelf: "auto", marginLeft: "1rem", }} onClick={() => {
-                                        unfollowHandler(followingUser._id)
-                                    }}>
-                                        unfollow
-                                    </Button>
-                                </Box>
+                                <FollowerLayout user={followingUser} unfollowHandler={unfollowHandler} type={"following"} />
                             )
                         })
                         : <div>
                             start follwoing
                         </div>
                 }
+            </ModalBox>}
+            {<ModalBox open={openFollowersModal} setOpen={setOpenFollowersModal} userdata={authUser} >
+                {
+                    authUser.followers.length > 0 ?
+                        authUser.followers.map((followersUser) => {
+                            return (
+                                <FollowerLayout user={followersUser} unfollowHandler={unfollowHandler} followHandler={followHandler} type={"followers"} />
+                            )
+                        })
+                        : <div>
+                            share you thought to make follower
+                        </div>
+                }
+
+
             </ModalBox>}
         </>
 
