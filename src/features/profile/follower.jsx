@@ -13,7 +13,7 @@ export const FollowerLayout = ({ user, unfollowHandler, followHandler, type }) =
 
     const isFollowed = (username) => {
         if (type === "following") {
-            authUser.following.find(user => user.username === username)
+            return authUser.following.find(user => user.username === username)
         } else if (type === "followers") {
             return authUser.followers.find(user => user.username === username)
         }
@@ -21,14 +21,12 @@ export const FollowerLayout = ({ user, unfollowHandler, followHandler, type }) =
 
 
     return (
-        <Box key={user._id} sx={{ display: "flex", alignItems: "center", gap: "0.5rem", flexWrap: "wrap", }}>
-            <div style={{ display: "flex", alignItems: "center", }}>
-                <Link to={`/profile/${user.username}`}>
+        <Box key={user._id}>
+            <Link to={`/profile/${user.username}`} className="suggestion-list__link">
+                <div style={{ display: "flex", alignItems: "center" }}>
                     <ListItemAvatar>
                         <Avatar alt={user?.firstName} src={user?.profileImg} />
                     </ListItemAvatar>
-                </Link>
-                <Link to={`/profile/${user.username}`}>
                     <ListItemText
                         primary={`${user.firstName} ${user.lastName}`}
                         secondary={
@@ -44,20 +42,23 @@ export const FollowerLayout = ({ user, unfollowHandler, followHandler, type }) =
                             </>
                         }
                     />
-                </Link>
-            </div>
-            {isFollowed(user.username) ?
-                <Button variant="outlined" size="small" sx={{ alignSelf: "auto", marginLeft: "1rem", }} onClick={() => {
-                    unfollowHandler(user._id)
-                }}>
-                    unfollow
-                </Button> :
-                <Button variant="outlined" size="small" sx={{ alignSelf: "auto", marginLeft: "1rem", }} onClick={() => {
-                    followHandler(user._id)
-                }}>
-                    follow
-                </Button>
-            }
+                </div>
+                {isFollowed(user.username) ?
+                    <Button variant="outlined" size="small" sx={{ alignSelf: "auto", marginLeft: "1rem", }} onClick={(e) => {
+                        e.preventDefault()
+                        unfollowHandler(user._id)
+                    }}>
+                        unfollow
+                    </Button> :
+                    <Button variant="outlined" size="small" sx={{ alignSelf: "auto", marginLeft: "1rem", }} onClick={(e) => {
+                        e.preventDefault()
+                        followHandler(user._id)
+                    }}>
+                        follow
+                    </Button>
+                }
+
+            </Link>
         </Box>
     )
 }

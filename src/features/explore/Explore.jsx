@@ -8,13 +8,13 @@ export const Explore = () => {
     const { posts } = useSelector((state) => state.posts);
     const { authUser, authToken } = useSelector((state) => state.auth);
 
-    const getUnfollowPost = () => posts.filter((post) => post.username !== authUser.username)
+    const getUnfollowPost = () => posts.filter((post) => post.username !== authUser.username && !authUser.following.find((user) => user.username === post.username))
 
     useEffect(() => {
         const unfollowPostData = getUnfollowPost()
+        console.log(unfollowPostData, authUser.username)
         setAllPosts(unfollowPostData)
-
-    }, [posts])
+    }, [posts, authUser])
 
     return (
         <div>
@@ -24,8 +24,8 @@ export const Explore = () => {
                 )
             })}
 
-<div>
-</div>
+            <div>
+            </div>
         </div>
     )
 }

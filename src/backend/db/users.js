@@ -91,11 +91,10 @@ export const users = [
     createdAt: "2022-01-05T10:55:06+05:30",
     updatedAt: formatDate(),
   },
-
   {
     _id: "5d98463f",
     firstName: "Jupiter",
-    lastName: "Jones",
+    lastName: "",
     username: "jupiter",
     password: "Jupiter",
     bio: "I believe in bee-ing myself",

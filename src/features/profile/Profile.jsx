@@ -55,7 +55,7 @@ export const Profile = () => {
     const isFollowed = (username) => authUser.following.find(user => user.username === username)
 
     console.log(profileLoading, postLoading)
-    console.log(isFollowed(profileDetails?._username))
+    console.log(isFollowed(username))
 
     return (
         <> {profileLoading === "loading" ? <p>Loading</p> :
@@ -77,13 +77,13 @@ export const Profile = () => {
                                 {`${profileDetails?.firstName} ${profileDetails?.lastName}`}
                             </Typography>
                             <Typography variant="subtitle2" gutterBottom component="span">
-                                {profileDetails?.username}
+                                @{profileDetails?.username}
                             </Typography>
                         </div>
                         <div>
                             {authUser.username === username ?
                                 <Button onClick={handleOpenEdit} variant="contained">Edit</Button> :
-                                isFollowed(profileDetails?.username) ?
+                                isFollowed(username) ?
                                     <Button onClick={() => {
                                         unfollowHandler(profileDetails._id)
                                     }} variant="contained">unfollow</Button>
@@ -132,7 +132,7 @@ export const Profile = () => {
                     authUser.following.length > 0 ?
                         authUser.following.map((followingUser) => {
                             return (
-                                <FollowerLayout user={followingUser} unfollowHandler={unfollowHandler} type={"following"} />
+                                <FollowerLayout key={followingUser._id} user={followingUser} unfollowHandler={unfollowHandler} type={"following"} />
                             )
                         })
                         : <div>
@@ -140,12 +140,12 @@ export const Profile = () => {
                         </div>
                 }
             </ModalBox>}
-            {<ModalBox open={openFollowersModal} setOpen={setOpenFollowersModal} userdata={authUser} >
+            {authUser.username === username && <ModalBox open={openFollowersModal} setOpen={setOpenFollowersModal} userdata={authUser} >
                 {
                     authUser.followers.length > 0 ?
                         authUser.followers.map((followersUser) => {
                             return (
-                                <FollowerLayout user={followersUser} unfollowHandler={unfollowHandler} followHandler={followHandler} type={"followers"} />
+                                <FollowerLayout key={followersUser._id} user={followersUser} unfollowHandler={unfollowHandler} followHandler={followHandler} type={"followers"} />
                             )
                         })
                         : <div>

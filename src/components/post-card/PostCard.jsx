@@ -32,10 +32,11 @@ export const PostCard = ({ postData, authToken }) => {
     const [editPost, setEditPost] = useState(false)
     const dateFormat = new Date(postData.updatedAt).toLocaleDateString('en-GB')
     const { users } = useSelector((state) => state.users);
+    const { authUser } = useSelector((state) => state.auth);
 
     const dispatch = useDispatch();
 
-    const getUserAvatar = (username) => users.find(user => user.username === username)
+    const getUser = (username) => users.find(user => user.username === username)
 
     return (
         <div style={{ margin: "1rem 0" }}>
@@ -47,31 +48,38 @@ export const PostCard = ({ postData, authToken }) => {
                     sx={{ p: 1, bgcolor: 'background.paper', borderRadius: 1 }}
                 >
                     <div style={{ display: "flex", width: "100%", alignItems: "center", }}>
-
                         <Item>
                             <Link to={`/profile/${postData.username}`} >
-                                <Avatar alt={postData.username} src={getUserAvatar(postData.username).profileImg} />
+                                <Avatar alt={postData.username} src={getUser(postData.username)?.profileImg} />
                             </Link>
                         </Item>
-                        <Item sx={{ flexGrow: 1 }}>
-                            <Link to={`/profile/${postData.username}`} variant="h5" gutterBottom component="span">
-                                {postData.username}
+                        <Item sx={{ flexGrow: 1 }} >
+                            <Link to={`/profile/${postData.username}`} variant="h5" gutterBottom component="span" style={{ color: "black", display: "block", textDecoration: "none" }}>
+                                <Typography variant="h6" gutterBottom component="span" sx={{ fontWeight: "600" }}>
+                                    {`${getUser(postData.username)?.firstName} ${getUser(postData.username)?.lastName}`}
+                                </Typography>
+                                <Typography variant="subtitle2" gutterBottom component="span" sx={{ marginLeft: "0.5rem" }}>
+                                    @{postData.username}
+                                </Typography>
                             </Link>
-                            <Typography variant="subtitle2" gutterBottom component="span" sx={{ marginLeft: "1rem" }}>
+                            <Typography variant="overline" gutterBottom component="span" sx={{ lineHeight: "0" }}>
                                 {dateFormat}
                             </Typography>
                         </Item>
-                        <PostMenu>
-                            <MenuItem onClick={() => {
-                                setEditPost(true)
-                            }}>Edit</MenuItem>
-                            <MenuItem onClick={() => {
-                                dispatch(deletePostThunk({
-                                    postId: postData._id,
-                                    authToken: authToken,
-                                }))
-                            }}>Delete</MenuItem>
-                        </PostMenu>
+                        {
+                            authUser.username === postData.username && <PostMenu>
+                                <MenuItem onClick={() => {
+                                    setEditPost(true)
+                                }}>Edit</MenuItem>
+                                <MenuItem onClick={() => {
+                                    dispatch(deletePostThunk({
+                                        postId: postData._id,
+                                        authToken: authToken,
+                                    }))
+                                }}>Delete</MenuItem>
+                            </PostMenu>
+                        }
+
                     </div>
                     <div>
                         <Typography variant="subtitle1" gutterBottom component="p" sx={{ marginLeft: "1rem" }}>
