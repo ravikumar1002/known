@@ -4,6 +4,9 @@ import {
   signupThunk,
   addBookmarkThunk, 
   removeBookmarkThunk,
+  editUserProfileThunk,
+  followUserThunk,
+  unfollowUserThunk,
 } from "../../thunk";
 
 const initialState = {
@@ -13,6 +16,8 @@ const initialState = {
   authError: null,
   bookmarkStatus: "idle",
   bookmarkError: null,
+  editProfileStatus: "idle",
+  followStatus: "idle",
 };
 
 const authSlice = createSlice({
@@ -28,6 +33,7 @@ const authSlice = createSlice({
       state.authError = null;
       state.bookmarkStatus = "idle";
       state.bookmarkError = null;
+      state.followStatus = "idle";
     },
   },
   extraReducers: {
@@ -80,6 +86,38 @@ const authSlice = createSlice({
     [removeBookmarkThunk.rejected]: (state, action) => {
       state.bookmarkStatus = "rejected";
       state.bookmarkError = action.payload;
+    },
+    [editUserProfileThunk.pending]: (state) => {
+      state.editProfileStatus = "pending";
+    },
+    [editUserProfileThunk.fulfilled]: (state, action) => {
+      state.editProfileStatus = "fulfilled";
+      state.authUser = action.payload;
+    },
+    [editUserProfileThunk.rejected]: (state, action) => {
+      state.editProfileStatus = "Error";
+    },
+    [followUserThunk.fulfilled]: (state, action) => {
+      state.authUser =action.payload.user
+      state.followStatus = "fulfilled";
+    },
+    [followUserThunk.pending]: (state, action) => {
+      state.followStatus = "pending";
+    },
+    [followUserThunk.rejected]: (state, action) => {
+      console.error(action.payload);
+      state.followStatus = "idle";
+    },
+    [unfollowUserThunk.fulfilled]: (state, action) => {
+      state.authUser =action.payload.user
+      state.followStatus = "fulfilled";
+    },
+    [unfollowUserThunk.pending]: (state, action) => {
+      state.followStatus = "pending";
+    },
+    [unfollowUserThunk.rejected]: (state, action) => {
+      console.error(action.payload);
+      state.followStatus = "idle";
     },
   },
 });

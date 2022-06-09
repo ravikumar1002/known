@@ -26,8 +26,9 @@ export const SignUp = () => {
             username: data.get('username'),
             password: data.get('password'),
             email: data.get('email'),
-            firstname: data.get("firstName"),
-            lastname: data.get("lastname")
+            firstName: data.get("firstname"),
+            lastName: data.get("lastname"),
+            profileImg: "https://www.w3schools.com/howto/img_avatar.png",
         }
         dispatch(signupThunk(dataFormat));
     }
@@ -65,10 +66,10 @@ export const SignUp = () => {
                             <Grid item xs={12} sm={6}>
                                 <TextField
                                     autoComplete="given-name"
-                                    name="firstName"
+                                    name="firstname"
                                     required
                                     fullWidth
-                                    id="firstName"
+                                    id="firstname"
                                     label="First Name"
                                     autoFocus
                                 />

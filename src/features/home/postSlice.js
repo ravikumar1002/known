@@ -95,7 +95,6 @@ const postsSlice = createSlice({
       state.commentStatus = "fulfilled";
     },
     [addCommentThunk.rejected]: (state, action) => {
-      state.postError = action.payload;
       state.commentStatus = "idle";
     },
     [editCommentThunk.pending]: (state, action) => {
@@ -106,7 +105,6 @@ const postsSlice = createSlice({
       state.commentStatus = "fulfilled";
     },
     [editCommentThunk.rejected]: (state, action) => {
-      state.postError = action.payload;
       state.commentStatus = "idle";
     },
     [deleteCommentThunk.pending]: (state, action) => {
@@ -117,7 +115,6 @@ const postsSlice = createSlice({
       state.commentStatus = "fulfilled";
     },
     [deleteCommentThunk.rejected]: (state, action) => {
-      state.postError = action.payload;
       state.commentStatus = "idle";
     },
   },

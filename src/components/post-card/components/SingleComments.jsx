@@ -3,11 +3,12 @@ import { PostMenu } from "./PostMenu"
 import { deleteCommentThunk, editCommentThunk } from "../../../thunk"
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { Avatar } from '@mui/material';
+import { Avatar, Divider, ListItemAvatar, ListItemText } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
+import { Link } from "react-router-dom";
 
 const Item = (props) => {
     const { sx, ...other } = props;
@@ -31,6 +32,9 @@ export const SingleComments = ({ comment, post }) => {
     const [editComment, setEditComment] = useState(false)
     const [editCommentPara, setEditCommentPara] = useState({ comment: "" })
     const { authToken, authUser } = useSelector((state) => state.auth);
+    const { users } = useSelector((state) => state.users);
+    const [currentUser, setCurrentUser] = useState({})
+
     const dispatch = useDispatch();
 
     const CommentEvent = (targetValue) => {
@@ -41,17 +45,45 @@ export const SingleComments = ({ comment, post }) => {
             }
         })
     }
+
+    const getUserDetail = (username) => {
+        const userData = users.find((user) => user.username === username)
+        setCurrentUser({ ...userData })
+    }
+
+    useEffect(() => {
+        getUserDetail(comment.username)
+    }, [comment.username])
+
     return (
-        <div>
+        <div style={{
+            background: "#e9e9e9",
+            padding: "0.5rem",
+            borderRadius: "10px",
+        }}>
             <div style={{ display: "flex", width: "100%", alignItems: "center", }}>
-                <Item>
-                    <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-                </Item>
-                <Item sx={{ flexGrow: 1 }}>
-                    <Typography variant="h6" gutterBottom component="span">
-                        {comment.username}
-                    </Typography>
-                </Item>
+                <Link to={`/profile/${comment.username}`} className="suggestion-list__link">
+                    <div style={{ display: "flex", alignItems: "center" }}>
+                        <ListItemAvatar>
+                            <Avatar alt={comment.username} src={currentUser?.profileImg} />
+                        </ListItemAvatar>
+                        <ListItemText
+                            primary={`${currentUser.firstName} ${currentUser.lastName}`}
+                            secondary={
+                                <>
+                                    <Typography
+                                        sx={{ display: 'inline' }}
+                                        component="span"
+                                        variant="caption"
+                                        color="text.primary"
+                                    >
+                                        @{currentUser.username}
+                                    </Typography>
+                                </>
+                            }
+                        />
+                    </div>
+                </Link>
                 {authUser.username === comment.username &&
                     <PostMenu>
                         <MenuItem onClick={() => {
@@ -89,7 +121,13 @@ export const SingleComments = ({ comment, post }) => {
                     setEditComment(false)
 
                 }}>Edit</button></div> :
-                    <p>{comment?.text?.comment}</p>
+                    <Typography
+                        component="p"
+                        variant="body2"
+                        color="text.primary"
+                    >
+                        {comment?.text?.comment}
+                    </Typography>
                 }
             </div>
         </div>

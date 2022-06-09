@@ -3,6 +3,9 @@ import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import { SingleComments } from './SingleComments';
 import Box from '@mui/material/Box';
+import { useSelector } from 'react-redux';
+import { Divider } from '@mui/material';
+import React from 'react';
 
 
 const style = {
@@ -15,11 +18,14 @@ const style = {
     overflow: "auto",
     bgcolor: 'background.paper',
     boxShadow: 24,
-    p: 4,
+    padding: "1rem",
+    display: "flex",
+    flexDirection: "column",
+    gap: "0.5rem",
 };
 
 
-export const TransitionsModal = ({ commentData, open, setOpen, handleOpen, post }) => {
+export const AllCommentsModal = ({ commentData, open, setOpen, handleOpen, post }) => {
 
     const handleClose = () => setOpen(false);
 
@@ -40,7 +46,10 @@ export const TransitionsModal = ({ commentData, open, setOpen, handleOpen, post 
                     {post?.comments?.length > 0 ?
                         post.comments.map((comment) => {
                             return (
-                                <SingleComments comment={comment} post={post} key={comment._id} handleClose= {handleClose}/>
+                                <React.Fragment key={comment._id}>
+                                    <SingleComments comment={comment} post={post} key={comment._id} handleClose={handleClose} />
+                                    <Divider />
+                                </React.Fragment>
                             )
                         })
                         :

@@ -2,11 +2,10 @@ import {followUserInServer, unfollowUserInServer } from "../services"
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const followUserThunk = createAsyncThunk(
-  "/users/followUser",
-  async ({ followUserId, authToken, dispatch }, { rejectWithValue }) => {
+  "/auth/followUser",
+  async ({ followUserId, authToken }, { rejectWithValue }) => {
     try {
       const response = await followUserInServer(followUserId, authToken);
-      dispatch(editUserProfile({ userDetails: response.data.user, authToken }));
       return response.data;
     } catch (error) {
       console.error(error.response.data);
@@ -17,11 +16,10 @@ export const followUserThunk = createAsyncThunk(
 );
 
 export const unfollowUserThunk = createAsyncThunk(
-  "/users/unfollowUser",
-  async ({ followUserId, authToken, dispatch }, { rejectWithValue }) => {
+  "/auth/unfollowUser",
+  async ({ followUserId, authToken }, { rejectWithValue }) => {
     try {
       const response = await unfollowUserInServer(followUserId, authToken);
-      dispatch(editUserProfile({ userDetails: response.data.user, authToken }));
       return response.data;
     } catch (error) {
       console.error(error.response.data);

@@ -25,6 +25,7 @@ const Item = (props) => {
 
 export const InputPostCard = ({ updatePost, updateData, setEditPost }) => {
     const { authToken, authUser } = useSelector((state) => state.auth);
+    const { profileDetails} = useSelector((state) => state.profile);
     const [inputValue, setInputValue] = useState(updatePost ? { ...updateData } : { content: "" });
     const dispatch = useDispatch();
 
@@ -67,7 +68,7 @@ export const InputPostCard = ({ updatePost, updateData, setEditPost }) => {
             >
                 <div style={{ display: "flex", width: "100%" }}>
                     <Item>
-                        <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+                        <Avatar alt={authUser?.firstName} src={authUser?.profileImg} />
                     </Item>
                     <Item sx={{ flexGrow: 1 }}>
                         <TextField

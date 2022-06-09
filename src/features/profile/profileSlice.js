@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { logoutUser } from "../../features";
 import {
-  editUserProfileThunk,
+  // editUserProfileThunk,
   loadUserDetailsThunk,
   loadUserPostsThunk,
 } from "../../thunk";
@@ -12,6 +12,7 @@ const profileSlice = createSlice({
     profileDetails: null,
     postsDetails: [],
     profileLoading: "idle",
+    postLoading: "idle",
   },
   reducers: {},
   extraReducers: {
@@ -19,35 +20,31 @@ const profileSlice = createSlice({
       state.profileDetails = null;
       state.postsDetails = [];
       state.profileLoading = "idle";
+      state.postLoading = "idle";
     },
-    [loadUserDetailsThunk.loading]: (state, action) => {
+    [loadUserDetailsThunk.pending]: (state, action) => {
       state.profileLoading = "loading";
     },
     [loadUserDetailsThunk.fulfilled]: (state, action) => {
-      state.profileDetails = action.payload;
-    },
-    [loadUserDetailsThunk.rejected]: (state, action) => {
-      console.error(action.payload);
-    },
-    [loadUserPostsThunk.loading]: (state, action) => {
-      state.profileLoading = "loading";
-    },
-    [loadUserPostsThunk.fulfilled]: (state, action) => {
-      state.postsDetails = action.payload;
-    },
-    [loadUserPostsThunk.rejected]: (state, action) => {
-      console.error(action.payload);
-    },
-    [editUserProfileThunk.pending]: (state) => {
-      state.profileLoading = "pending";
-    },
-    [editUserProfileThunk.fulfilled]: (state, action) => {
       state.profileLoading = "fulfilled";
       state.profileDetails = action.payload;
     },
-    [editUserProfileThunk.rejected]: (state, action) => {
-      state.profileLoading = "Error";
+    [loadUserDetailsThunk.rejected]: (state, action) => {
+      state.profileLoading = "error";
+      console.error(action.payload);
     },
+    [loadUserPostsThunk.pending]: (state, action) => {
+      state.postLoading = "loading";
+    },
+    [loadUserPostsThunk.fulfilled]: (state, action) => {
+      state.postLoading = "fulfilled";
+      state.postsDetails = action.payload;
+    },
+    [loadUserPostsThunk.rejected]: (state, action) => {
+      state.postLoading = "error";
+      console.error(action.payload);
+    },
+    
   },
 });
 

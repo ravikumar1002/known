@@ -6,7 +6,7 @@ import { PageLayout } from "./components";
 import { Home } from "./features/home/home";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getPostsThunk } from "./thunk";
+import { getPostsThunk, getAllUsersThunk } from "./thunk";
 
 function App() {
   const { authToken } = useSelector((state) => state.auth);
@@ -14,6 +14,7 @@ function App() {
 
   useEffect(() => {
     dispatch(getPostsThunk());
+    dispatch(getAllUsersThunk());
   }, [authToken]);
 
   return (
