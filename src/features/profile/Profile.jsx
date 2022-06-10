@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import Box from '@mui/material/Box';
-import { logoutUser } from "../auth/authSlice"
-import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
+import {  useParams } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import Typography from "@mui/material/Typography";
 import Button from '@mui/material/Button';
@@ -9,18 +8,15 @@ import { loadUserDetailsThunk, loadUserPostsThunk } from "../../thunk"
 import { useEffect, useState } from "react";
 import { PostCard, ProfileEditModal } from "../../components";
 import { ModalBox } from "../../components"
-import ListItemText from '@mui/material/ListItemText';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
 import { unfollowUserThunk, followUserThunk } from "../../thunk"
 import { FollowerLayout } from "./follower";
+import { useDocumentTitle } from "../../hooks/useDocumentTitile";
 
 export const Profile = () => {
     const dispatch = useDispatch()
     const [openEdit, setOpenEdit] = useState(false);
     const [openFollowingModal, setOpenFollowingModal] = useState(false);
     const [openFollowersModal, setOpenFollowersModal] = useState(false);
-
-
 
     const { authUser, authToken } = useSelector((state) => state.auth);
     const { postsDetails, profileDetails, profileLoading, postLoading } = useSelector((state) => state.profile);
@@ -35,6 +31,10 @@ export const Profile = () => {
     const handleOpenFollowingModal = () => {
         setOpenFollowingModal(true)
     };
+
+    useEffect(() => {
+        useDocumentTitle("Profile")
+    }, [])
 
     useEffect(() => {
         if (username) {
@@ -54,8 +54,6 @@ export const Profile = () => {
 
     const isFollowed = (username) => authUser.following.find(user => user.username === username)
 
-    console.log(profileLoading, postLoading)
-    console.log(isFollowed(username))
 
     return (
         <> {profileLoading === "loading" ? <p>Loading</p> :
@@ -122,11 +120,18 @@ export const Profile = () => {
                     return (
                         <PostCard key={post._id} postData={post} authToken={authToken} />
                     )
-                }) : <p>No posts</p>}
+                }) : <Typography
+                    component="h6"
+                    variant="h6"
+                    color="text.primary"
+                    sx={{ fontWeight: "600", textAlign: "center", marginTop: "1rem" }}
+                >
+                    No Posts
+                </Typography>}
             </>
             }
 
-            <ProfileEditModal open={openEdit} setOpen={setOpenEdit} userdata={authUser} />
+            <ProfileEditModal open={openEdit} setOpen={setOpenEdit} userData={authUser} />
             {authUser.username === username && <ModalBox open={openFollowingModal} setOpen={setOpenFollowingModal} userdata={authUser}>
                 {
                     authUser.following.length > 0 ?
@@ -136,7 +141,14 @@ export const Profile = () => {
                             )
                         })
                         : <div>
-                            start follwoing
+                            <Typography
+                                component="h6"
+                                variant="h6"
+                                color="text.primary"
+                                sx={{ fontWeight: "600", textAlign: "center", marginTop: "1rem" }}
+                            >
+                                Start Following
+                            </Typography>
                         </div>
                 }
             </ModalBox>}
@@ -149,11 +161,16 @@ export const Profile = () => {
                             )
                         })
                         : <div>
-                            share you thought to make follower
+                            <Typography
+                                component="h6"
+                                variant="h6"
+                                color="text.primary"
+                                sx={{ fontWeight: "600", textAlign: "center", marginTop: "1rem" }}
+                            >
+                                share you thought to make follower
+                            </Typography>
                         </div>
                 }
-
-
             </ModalBox>}
         </>
 

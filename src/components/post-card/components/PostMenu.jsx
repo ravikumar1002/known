@@ -62,7 +62,7 @@ export const PostMenu = ({ children }) => {
                     placement="bottom-end"
                     transition
                     disablePortal
-                    sx={{ minWidth: "10rem" }}
+                    sx={{ minWidth: "10rem", zIndex: 1500, }}
                 >
                     {({ TransitionProps, placement }) => (
                         <Grow

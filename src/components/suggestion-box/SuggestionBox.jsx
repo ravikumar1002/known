@@ -20,7 +20,6 @@ export const SuggestionBox = () => {
     const dispatch = useDispatch();
     const { username } = useParams();
 
-
     useEffect(() => {
         const getUnfollowProfile = users.filter(
             (user) =>
@@ -35,7 +34,7 @@ export const SuggestionBox = () => {
 
 
     return (
-        <>
+        <div>
             {allSuggestion.length > 0 &&
                 <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper', borderRadius: "10px", height: "60%", overflow: "auto", position: "fixed", }}>
                     <ListItem>
@@ -85,6 +84,6 @@ export const SuggestionBox = () => {
                     })}
                 </List >
             }
-        </>
+        </div>
     );
 }

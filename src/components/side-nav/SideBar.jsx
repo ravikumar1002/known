@@ -35,8 +35,9 @@ const DrawerLists = styled(List)(({ theme }) => ({
         width: '100vw',
         position: 'fixed',
         justifyContent: 'space-around',
-        bottom: "0"
-
+        bottom: "0",
+        left: "0",
+        backgroundColor: "white",
     },
 }));
 
@@ -74,21 +75,21 @@ export const SideBar = () => {
     const getActiveStyle = ({ isActive }) => isActive ? activeStyle : deactiveStyle;
 
     return (
-        <DrawerWrapper>
+        <DrawerWrapper sx={{ height: "auto", }}>
             <Box>
                 <DrawerLists>
-                    <ListItem disablePadding sx={{display: "block", width: "100%"}}>
+                    <ListItem disablePadding sx={{ display: "block", width: "100%" }}>
                         <NavLink to="/" style={getActiveStyle}>
-                            <ListItemButton>
+                            <ListItemButton >
                                 <ResponsiveIcon>
                                     < Home />
                                 </ResponsiveIcon>
-                                <ResponsiveHideText primary={"Home"} />
+                                <ResponsiveHideText primary={"Feed"} />
                             </ListItemButton>
                         </NavLink>
                     </ListItem>
 
-                    <ListItem disablePadding sx={{display: "block", width: "100%"}}>
+                    <ListItem disablePadding sx={{ display: "block", width: "100%" }}>
                         <NavLink to="/explore" style={getActiveStyle}>
                             <ListItemButton>
                                 <ResponsiveIcon>
@@ -99,7 +100,7 @@ export const SideBar = () => {
                         </NavLink>
                     </ListItem>
 
-                    <ListItem disablePadding sx={{display: "block", width: "100%"}}>
+                    <ListItem disablePadding sx={{ display: "block", width: "100%" }}>
                         <NavLink to="/bookmarks" style={getActiveStyle}>
                             <ListItemButton>
                                 <ResponsiveIcon>
@@ -110,7 +111,7 @@ export const SideBar = () => {
                         </NavLink>
                     </ListItem>
 
-                    <ListItem disablePadding sx={{display: "block", width: "100%"}}>
+                    <ListItem disablePadding sx={{ display: "block", width: "100%" }}>
                         <NavLink to={`/profile/${authUser.username}`} style={getActiveStyle}>
                             <ListItemButton>
                                 <ResponsiveIcon>

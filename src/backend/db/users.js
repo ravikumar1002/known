@@ -43,7 +43,7 @@ export const users = [
     bio: "What should I put here?",
     bookmarks: [],
     profileImg:
-    "https://res.cloudinary.com/kumarravi/image/upload/v1654615643/social-media/Venus_nwwxqd.jpg",
+      "https://res.cloudinary.com/kumarravi/image/upload/v1654615643/social-media/Venus_nwwxqd.jpg",
     website: "https://romabulani.netlify.app/",
     createdAt: "2022-01-01T10:55:06+05:30",
     updatedAt: formatDate(),
@@ -71,7 +71,7 @@ export const users = [
     bio: "f “love is in the air,” why is the air so polluted?",
     bookmarks: [],
     profileImg:
-    "https://res.cloudinary.com/kumarravi/image/upload/v1654615637/social-media/Uranus_ton2b5.jpg",
+      "https://res.cloudinary.com/kumarravi/image/upload/v1654615637/social-media/Uranus_ton2b5.jpg",
     website: "https://romabulani.hashnode.dev/",
     createdAt: "2022-01-04T10:55:06+05:30",
     updatedAt: formatDate(),
@@ -86,7 +86,7 @@ export const users = [
     bio: "Follow me and I’ll follow back",
     bookmarks: [],
     profileImg:
-    "https://res.cloudinary.com/kumarravi/image/upload/v1654615630/social-media/Saturn_oj266y.jpg",
+      "https://res.cloudinary.com/kumarravi/image/upload/v1654615630/social-media/Saturn_oj266y.jpg",
     website: "",
     createdAt: "2022-01-05T10:55:06+05:30",
     updatedAt: formatDate(),
@@ -101,6 +101,20 @@ export const users = [
     bookmarks: [],
     profileImg:
       "https://res.cloudinary.com/kumarravi/image/upload/v1654615590/social-media/Jupiter_ugbkxz.jpg",
+    website: "",
+    createdAt: "2022-01-06T10:55:06+05:30",
+    updatedAt: formatDate(),
+  },
+  {
+    _id: "4dr866vff",
+    firstName: "Earth",
+    lastName: "",
+    username: "earth",
+    password: "earth",
+    bio: "Duniya",
+    bookmarks: [],
+    profileImg:
+      "https://res.cloudinary.com/kumarravi/image/upload/v1654615590/social-media/earth_yk8kzg",
     website: "",
     createdAt: "2022-01-06T10:55:06+05:30",
     updatedAt: formatDate(),
