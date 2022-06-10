@@ -56,6 +56,7 @@ export const Profile = () => {
 
     console.log(profileLoading, postLoading)
     console.log(isFollowed(username))
+    console.log(authUser)
 
     return (
         <> {profileLoading === "loading" ? <p>Loading</p> :
@@ -133,7 +134,7 @@ export const Profile = () => {
             </>
             }
 
-            <ProfileEditModal open={openEdit} setOpen={setOpenEdit} userdata={authUser} />
+            <ProfileEditModal open={openEdit} setOpen={setOpenEdit} userData={authUser} />
             {authUser.username === username && <ModalBox open={openFollowingModal} setOpen={setOpenFollowingModal} userdata={authUser}>
                 {
                     authUser.following.length > 0 ?
@@ -163,7 +164,7 @@ export const Profile = () => {
                             )
                         })
                         : <div>
-                            : <Typography
+                            <Typography
                                 component="h6"
                                 variant="h6"
                                 color="text.primary"

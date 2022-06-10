@@ -6,17 +6,23 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { Avatar, TextField } from '@mui/material';
+import { Avatar, IconButton, TextField } from '@mui/material';
 import Badge from '@mui/material/Badge';
 import axios from "axios";
-import { Image } from "@mui/icons-material";
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
+import DeleteIcon from '@mui/icons-material/Delete';
+import styled from "@emotion/styled";
+
+// const style = {
+
+// };
 
 const style = {
     position: 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
+    width: "auto",
     bgcolor: 'background.paper',
     boxShadow: 24,
     p: 4,
@@ -26,10 +32,9 @@ const style = {
     borderRadius: "10px",
 };
 
-const shapeStyles = { bgcolor: 'primary.main', width: 40, height: 40 };
-const shapeCircleStyles = { borderRadius: '50%' }
-
-
+const Input = styled('input')({
+    display: 'none',
+});
 
 export const ProfileEditModal = ({ open, setOpen, userData }) => {
 
@@ -40,7 +45,12 @@ export const ProfileEditModal = ({ open, setOpen, userData }) => {
     const { authUser, authToken } = useSelector((state) => state.auth);
 
 
-    const handleClose = () => setOpen(false);
+    const handleClose = () => {
+        setProfileImg(userData?.profileImg ? userData.profileImg : "https://www.w3schools.com/howto/img_avatar.png")
+        setBio(userData?.bio ? userData.bio : "")
+        setLink(userData?.link ? userData.link : "")
+        setOpen(false);
+    }
 
     const editProfile = () => {
         dispatch(editUserProfileThunk({
@@ -55,6 +65,7 @@ export const ProfileEditModal = ({ open, setOpen, userData }) => {
     }
 
     const uploadImage = async (image) => {
+        console.log(image)
         const data = new FormData();
         data.append("file", image[0]);
         data.append("upload_preset", "avullsqo");
@@ -76,6 +87,8 @@ export const ProfileEditModal = ({ open, setOpen, userData }) => {
             });;
     };
 
+    console.log(userData, profileImg)
+
     return (
         <div>
             <Modal
@@ -90,28 +103,28 @@ export const ProfileEditModal = ({ open, setOpen, userData }) => {
                         <Typography variant="body1" sx={{ fontWeight: "600" }} gutterBottom component="span">
                             Avatar
                         </Typography>
+                        <Avatar
+                            alt={`${userData?.username}`}
+                            src={`${profileImg}`}
+                            sx={{ width: 56, height: 56 }}
+                        />
+                        <div>
+                            <label htmlFor="icon-button-file" onChange={(e) => {
+                                console.log(e.target.files)
+                                uploadImage(e.target.files)
+                            }}>
+                                <Input accept="image/*" id="icon-button-file" type="file" />
+                                <IconButton color="primary" aria-label="upload picture" component="span" >
+                                    <PhotoCamera />
+                                </IconButton>
+                            </label>
+                            <IconButton color="error" aria-label="upload picture" component="span" onClick={() => setProfileImg("https://www.w3schools.com/howto/img_avatar.png")}>
+                                <DeleteIcon />
+                            </IconButton>
+                        </div>
 
-                        <Badge color="secondary" overlap="circular" badgeContent=" " anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
-                            {userData?.profileImg ?
-                                <Avatar
-                                    alt={`${userData.username}`}
-                                    src={`${profileImg}`}
-                                    sx={{ width: 56, height: 56 }}
-                                /> :
-                                <Avatar
-                                    alt="Remy Sharp"
-                                    src={`${profileImg}`}
-                                    sx={{ width: 56, height: 56 }}
-                                />}
-                            <input
-                                type="file"
-                                visibility="hidden"
-                                accept="image/*"
-                                onChange={(e) => uploadImage(e.target.files)}
-                            />
-                        </Badge>
+
                     </div>
-                    <Image />
                     <div>
                         <Typography variant="body1" sx={{ fontWeight: "600" }} gutterBottom component="span">
                             Bio

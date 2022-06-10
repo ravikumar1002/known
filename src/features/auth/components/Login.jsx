@@ -13,7 +13,7 @@ import Container from '@mui/material/Container';
 
 import { useDispatch, useSelector } from "react-redux";
 import { loginThunk } from '../../../thunk';
-import { useLocation, useNavigate , Link} from 'react-router-dom';
+import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { useEffect } from 'react';
 
 
@@ -32,6 +32,15 @@ export const Login = () => {
         const dataFormat = {
             password: data.get('password'),
             username: data.get('username'),
+        }
+        dispatch(loginThunk(dataFormat));
+    }
+
+    const loginAsGuest = (e) => {
+        e.preventDefault()
+        const dataFormat = {
+            password: "earth",
+            username: "earth",
         }
         dispatch(loginThunk(dataFormat));
     }
@@ -94,6 +103,16 @@ export const Login = () => {
                     >
                         log In
                     </Button>
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        sx={{ mt: 1, mb: 2 }}
+                        onClick={loginAsGuest}
+                    >
+                        log As Guest
+                    </Button>
+
                     <Grid container>
                         <Grid item>
                             <Link to="/signup" variant="body2">
