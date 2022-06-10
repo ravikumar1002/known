@@ -1,6 +1,4 @@
 import Button from '@mui/material/Button';
-import DeleteIcon from '@mui/icons-material/Delete';
-import SendIcon from '@mui/icons-material/Send';
 import Stack from '@mui/material/Stack';
 import WhatshotIcon from '@mui/icons-material/Whatshot';
 import SortIcon from '@mui/icons-material/Sort';

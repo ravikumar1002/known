@@ -20,7 +20,6 @@ export const SuggestionBox = () => {
     const dispatch = useDispatch();
     const { username } = useParams();
 
-
     useEffect(() => {
         const getUnfollowProfile = users.filter(
             (user) =>

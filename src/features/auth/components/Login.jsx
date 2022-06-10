@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginThunk } from '../../../thunk';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { useEffect } from 'react';
+import { useDocumentTitle } from "../../../hooks/useDocumentTitile";
 
 
 
@@ -25,6 +26,9 @@ export const Login = () => {
     const location = useLocation();
     const { authToken } = useSelector((state) => state.auth);
 
+    useEffect(() => {
+        useDocumentTitle("Login")
+    }, [])
 
     const loginHandler = (e) => {
         e.preventDefault()

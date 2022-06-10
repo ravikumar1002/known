@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { signupThunk } from '../../../thunk';
 import { useLocation, useNavigate,Link } from 'react-router-dom';
 import { useEffect } from 'react';
+import { useDocumentTitle } from "../../../hooks/useDocumentTitile";
 
 export const SignUp = () => {
     const dispatch = useDispatch();
@@ -41,6 +42,10 @@ export const SignUp = () => {
         authToken &&
             navigate(location?.state?.from?.pathname || "/", { replace: true });
     }, [authToken]);
+
+    useEffect(() => {
+        useDocumentTitle("Signup")
+    }, [])
 
 
     return (

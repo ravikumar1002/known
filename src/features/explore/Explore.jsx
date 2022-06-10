@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { PostCard } from "../../components";
+import { useDocumentTitle } from "../../hooks/useDocumentTitile";
 
 
 export const Explore = () => {
@@ -12,9 +13,12 @@ export const Explore = () => {
 
     useEffect(() => {
         const unfollowPostData = getUnfollowPost()
-        console.log(unfollowPostData, authUser.username)
         setAllPosts(unfollowPostData)
     }, [posts, authUser])
+
+    useEffect(() => {
+        useDocumentTitle("Explore")
+    }, [])
 
     return (
         <div>

@@ -13,10 +13,6 @@ import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import DeleteIcon from '@mui/icons-material/Delete';
 import styled from "@emotion/styled";
 
-// const style = {
-
-// };
-
 const style = {
     position: 'absolute',
     top: '50%',
@@ -65,7 +61,6 @@ export const ProfileEditModal = ({ open, setOpen, userData }) => {
     }
 
     const uploadImage = async (image) => {
-        console.log(image)
         const data = new FormData();
         data.append("file", image[0]);
         data.append("upload_preset", "avullsqo");
@@ -87,7 +82,6 @@ export const ProfileEditModal = ({ open, setOpen, userData }) => {
             });;
     };
 
-    console.log(userData, profileImg)
 
     return (
         <div>
@@ -110,7 +104,6 @@ export const ProfileEditModal = ({ open, setOpen, userData }) => {
                         />
                         <div>
                             <label htmlFor="icon-button-file" onChange={(e) => {
-                                console.log(e.target.files)
                                 uploadImage(e.target.files)
                             }}>
                                 <Input accept="image/*" id="icon-button-file" type="file" />

@@ -2,8 +2,8 @@ import { PostCard, Filter } from "../../components"
 import { InputPostCard } from "./components/input-post-card/InputPostCard"
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { getPostsThunk } from "../../thunk";
 import { Typography } from "@mui/material";
+import { useDocumentTitle } from "../../hooks/useDocumentTitile";
 
 export const Home = () => {
     const { posts } = useSelector((state) => state.posts);
@@ -38,7 +38,10 @@ export const Home = () => {
         }
     }, [authUser, posts, activeFilter]);
 
-    console.log(followingPosts)
+    useEffect(() => {
+        useDocumentTitle("Home")
+    }, [])
+
     return (
         <div>
             <InputPostCard />
