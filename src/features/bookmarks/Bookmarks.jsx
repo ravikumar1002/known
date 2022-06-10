@@ -10,7 +10,7 @@ export const Bookmarks = () => {
     return (
         <div>
             {authUser.bookmarks.length === 0 ? <div>
-                <Typography variant="h6" align='center'  gutterBottom component="div">
+                <Typography variant="h6" align='center'  sx={{ fontWeight: "600", textAlign: "center", marginTop: "1rem" }}  gutterBottom component="div">
                     No Bookmarks Yet
                 </Typography>
             </div> : authUser.bookmarks.map(postId => {

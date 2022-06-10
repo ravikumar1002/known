@@ -122,7 +122,14 @@ export const Profile = () => {
                     return (
                         <PostCard key={post._id} postData={post} authToken={authToken} />
                     )
-                }) : <p>No posts</p>}
+                }) : <Typography
+                    component="h6"
+                    variant="h6"
+                    color="text.primary"
+                    sx={{ fontWeight: "600", textAlign: "center", marginTop: "1rem" }}
+                >
+                    No Posts
+                </Typography>}
             </>
             }
 
@@ -136,7 +143,14 @@ export const Profile = () => {
                             )
                         })
                         : <div>
-                            start follwoing
+                            <Typography
+                                component="h6"
+                                variant="h6"
+                                color="text.primary"
+                                sx={{ fontWeight: "600", textAlign: "center", marginTop: "1rem" }}
+                            >
+                                Start Following
+                            </Typography>
                         </div>
                 }
             </ModalBox>}
@@ -149,11 +163,16 @@ export const Profile = () => {
                             )
                         })
                         : <div>
-                            share you thought to make follower
+                            : <Typography
+                                component="h6"
+                                variant="h6"
+                                color="text.primary"
+                                sx={{ fontWeight: "600", textAlign: "center", marginTop: "1rem" }}
+                            >
+                                share you thought to make follower
+                            </Typography>
                         </div>
                 }
-
-
             </ModalBox>}
         </>
 

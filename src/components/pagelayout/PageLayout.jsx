@@ -16,7 +16,7 @@ export const PageLayout = ({ children }) => {
                 justifyContent="space-between"
                 sx={{ padding: "1rem" }}
             >
-                <Grid item xs={0} sm={3} md={2} position={{ xs: "fixed", sm: "static" }}>
+                <Grid item xs={0} sm={3} md={2} position={{ xs: "fixed", sm: "static" , zIndex: 2000,}}>
                     <SideBar />
                 </Grid>
                 <Grid item xs={12} sm={9} md={6}>
