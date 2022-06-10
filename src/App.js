@@ -1,5 +1,5 @@
 import "./App.css";
-import { Login, SignUp, Profile, Explore, Bookmarks } from "./features";
+import { Login, SignUp, Profile, Explore, Bookmarks, ErrorPage } from "./features";
 import { Routes, Route, Link } from "react-router-dom";
 import { RequireAuth } from "./features/auth/RequireAuth";
 import { PageLayout } from "./components";
@@ -62,6 +62,8 @@ function App() {
             </RequireAuth>
           }
         ></Route>
+        <Route path="*" element={<ErrorPage />} />
+
       </Routes>
     </div>
   );
