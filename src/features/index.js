@@ -3,6 +3,7 @@ export { Login } from "./auth/components/Login";
 export { Profile } from "./profile/Profile";
 export { Explore } from "./explore/Explore";
 export { Bookmarks } from "./bookmarks/Bookmarks";
+export {ErrorPage} from "./error/ErrorPage"
 
 export * from "./auth/authSlice";
 export * from "./home/postSlice";
