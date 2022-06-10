@@ -18,7 +18,6 @@ $ npm start
 ## Features
 - Authentication using JWT  for Login and Signup Pages. All the below features are present after login.
 - User can create, edit and delete the post.
-- Upload post.
 - User can add, edit and delete comment on any post.
 - User can like or unlike any post.
 - User can add or remove post from bookmarks.
@@ -44,4 +43,8 @@ $ npm start
 [Familiar](https://familiar.netlify.app/)
 
 ## Demo
+
+
+https://user-images.githubusercontent.com/86847625/173057091-dbae6305-0c59-4cb6-8b69-6dcb56ea86a2.mp4
+
 
